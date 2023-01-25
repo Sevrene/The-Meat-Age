@@ -67,6 +67,23 @@ function showTab(tab) {
 
 function startAnimation() {
     meatRoaster.style.animationPlayState = "running";
+    console.log(inventory.Meat);
+    // start interval for adding Meat every second
+  let meatInterval = setInterval(function() {
+    if (inventory.Meat < maxMeat) {
+      inventory.Meat++;
+    }
+  }, 1000);
+
+  document.getElementById("meat").addEventListener("mouseleave", function() {
+    clearInterval(meatInterval);
+    stopAnimation()
+  });
+
+  // add event listener for mouseup to stop interval
+  document.addEventListener("mouseup", function() {
+    clearInterval(meatInterval);
+  });
 }
 
 function stopAnimation() {
@@ -128,9 +145,11 @@ function loadCanvas() {
         
     // Clear canvas button event handler
     var clearCanvasBtn = document.getElementById("clearCanvasBtn");
-    
+    var beginResearchBtn = document.getElementById("beginResearchBtn");
+    beginResearchBtn.disabled = true;
     clearCanvasBtn.addEventListener("click", function () {
         beginResearchBtn.disabled = true;
+        canvas.classList.remove("drawing");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 
@@ -149,7 +168,7 @@ function loadCanvas() {
     }
 
     function checkResearch() {
-        var beginResearchBtn = document.getElementById("beginResearchBtn");
+        
         // Check if a research item is active and if the user has drawn something
         if (document.querySelector('.researchItem.active') && canvas.classList.contains("drawing")) {
             // Enable the save drawing button
@@ -159,24 +178,6 @@ function loadCanvas() {
             beginResearchBtn.disabled = true;
         }
     }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// select the "beginResearchBtn" button
-const beginResearchBtn = document.getElementById("beginResearchBtn");
 
 // add an event listener for the click event
 beginResearchBtn.addEventListener("click", function() {
@@ -192,9 +193,9 @@ beginResearchBtn.addEventListener("click", function() {
   
     // create a copy of the canvas drawing
     const canvasCopy = document.createElement("canvas");
-    canvasCopy.width = drawingCanvas.width;
-    canvasCopy.height = drawingCanvas.height;
-    canvasCopy.getContext("2d").drawImage(drawingCanvas, 0, 0);
+    canvasCopy.width = drawingCanvas.width/2;
+    canvasCopy.height = drawingCanvas.height/2;
+    canvasCopy.getContext("2d").drawImage(drawingCanvas, 0, 0, drawingCanvas.width, drawingCanvas.height, 0, 0, canvasCopy.width, canvasCopy.height);
   
     // append the canvas copy to the research div
     researchDiv.appendChild(canvasCopy);
@@ -212,6 +213,7 @@ beginResearchBtn.addEventListener("click", function() {
       // remove the selected class from the selected research item
       selectedResearchItem.classList.remove("active");
       selectedResearchItem.remove();
+      canvas.classList.remove("drawing");
     }
   
     // create a progress bar
@@ -230,3 +232,31 @@ beginResearchBtn.addEventListener("click", function() {
     // disable the "beginResearchBtn" button
     beginResearchBtn.disabled = true;
   });
+
+}
+
+// player inventory
+let inventory = {
+    Meat: 0
+};
+  
+// maximum Meat that can be held
+const maxMeat = 100;
+
+// start interval for removing meat every second
+setInterval(function() {
+    if (inventory.Meat > 0) {
+      inventory.Meat -= 0.1;
+    }
+}, 1000);
+
+
+
+
+
+
+
+
+
+
+
