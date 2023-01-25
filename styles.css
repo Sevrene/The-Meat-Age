@@ -1,0 +1,236 @@
+#meat {
+    width: 160px;
+    height: 160px;
+    transform: scale(0.5); /* reduce the size of the animation by 50% */
+    background: url('images/meatCoin.png') 0px 0px; /* set the initial background position */
+    animation: playSpriteSheet 3s steps(32) infinite; /* define the animation */
+    animation-play-state: paused;
+}
+
+@keyframes playSpriteSheet {
+    100% { background-position: -5120px 0px; } /* final background position */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Base game containers */
+#gameWindow {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 32px;
+    left: 0;
+    background: url('images/subMenuBG.png');
+}
+#playContainer {
+    width: 40%;
+    position: absolute;
+    left: 10%;
+	top:0px;
+	bottom:0;
+	min-width:100px;
+    background:rgba(0,0,0,0.5);
+    border: 3px solid;
+}
+#tabs {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+#resourceBank {
+    width: 40%;
+    position: absolute;
+    right: 10%;
+	top:0px;
+	bottom:0;
+	min-width:100px;
+    background:rgba(0,0,0,0.5);
+}
+
+/* Play Area */
+#playArea {
+    margin-top: 30px;
+}
+.tab-content {
+    display: none;
+}
+.tab-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    flex: 1;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: transparent;
+    color: darkgray;
+    font-weight: bold;
+    font-size: 20px;
+}
+.tab-btn.active {
+    color: rgb(243, 243, 243);
+}
+
+/* Cooking Tab */
+
+/* Research Tab */
+#researchCanvasContainer {
+    width: 90%;
+    height: 200px;
+    position: relative;
+    left: 5%;
+    top: 10px;
+}
+
+#drawingCanvas{
+    background: linear-gradient(to right, #f7e1b5, #f7e1b5);
+    filter: blur(2px);
+    border: 2px solid #5c5c5c;
+}
+
+#researchItemList {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    left: 71%;
+    top: 0;
+}
+
+.researchItem {
+    border: 2px dotted;
+    height: 25%;
+    width: 100%;
+    cursor: pointer;
+    background-color: transparent;
+    color: darkgray;
+    font-weight: bold;
+}
+
+.researchItem.active {
+    border: solid;
+    color: rgb(243, 243, 243);
+}
+
+#canvasButtonsContainer {
+    width: 70%;
+    position: relative;
+    display: flex;
+    justify-content:space-evenly;
+}
+
+#clearCanvasBtn, #beginResearchBtn {
+    width: 40%;
+    justify-content: center;
+}
+
+/* Popup Windows */
+#popup-window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+.hidden {
+    display: none;
+}
+
+/* Bottom InfoBar */
+#infoBar {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 32px;
+    color: #ccc;
+    background-color: darkslategray;
+    padding: 3px 0px;
+    box-shadow: 0px 0px 3px 1px rgba(255,255,255,0.2);
+}
+@media (max-width: 600px) {
+    #infoBar {
+        font-size: 0.75em;
+    }
+    #infoBar a, #infoBar button {
+        font-size: 0.75em;
+    }
+}
+#infoBar > div:nth-child(-n+2) {
+    float: left;
+}
+#infoBar > div:nth-child(n+3) {
+    float: right;
+}
+#infoBar > div, #canvasButtonsContainer > button {
+    display: flex;
+    height: 32px;
+    align-items: center;
+    margin: 0px 3px;
+    box-shadow:
+        inset 0px 2px 0px #000,
+        inset 0px -2px 0px #ccc;
+    border-radius: 5px;
+    transform: skew(-10deg);
+}
+#infoBar > div:active {
+    transform: skew(-10deg) translateY(1px);
+    background-color: #333333
+}
+#infoBar > div:active > a, #infoBar > div:active > button {
+    color: #ccc;
+}
+#infoBar a {
+    color:#fff;
+    text-decoration: none;
+    padding: 0px 5px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+#infoBar a > div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+#infoBar a:hover {
+    color: #7289da;
+    text-shadow: 0px 0px 3px #5e73c1;
+}
+#infoBar button {
+    color:#fff;
+    background-color: transparent;
+    padding: 0px 10px;
+    height: 100%;
+    border: none;
+}
+#infoBar button:hover {
+    color: #7289da;
+    text-shadow: 0px 0px 3px #5e73c1;
+    cursor: pointer;
+}
+#infoBar img {
+    padding: 5px 5px 5px 0px;
+}
+#infoBar div:hover {
+    cursor: pointer;
+}
