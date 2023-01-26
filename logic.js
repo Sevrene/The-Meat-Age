@@ -67,19 +67,19 @@ function showTab(tab) {
 
 function startAnimation() {
     meatRoaster.style.animationPlayState = "running";
-    // start interval for adding Meat every second
-    let meatInterval = setInterval(function() {
-        inventory.addToItemValue("Meat", 1);
+    // start interval for adding Hunger every second
+    let HungerInterval = setInterval(function() {
+        inventory.addToItemValue("Hunger", 1);
     }, 500);
 
     document.getElementById("meat").addEventListener("mouseleave", function() {
-        clearInterval(meatInterval);
+        clearInterval(HungerInterval);
         stopAnimation();
     });
 
     // add event listener for mouseup to stop interval
     document.addEventListener("mouseup", function() {
-        clearInterval(meatInterval);
+        clearInterval(HungerInterval);
     });
 }
 
@@ -279,12 +279,12 @@ class Inventory {
 }
 
 let inventory = new Inventory();
-inventory.createItem("Meat", 0, 100, 1);
+inventory.createItem("Hunger", 0, 100, 1);
 
-// start interval for removing meat every second
+// start interval for removing Hunger every second
 setInterval(function() {
-    if (inventory.getItemValue("Meat") > 0) {
-        inventory.addToItemValue("Meat", -0.1);
+    if (inventory.getItemValue("Hunger") > 0) {
+        inventory.addToItemValue("Hunger", -0.1);
     }
 }, 1000);
 
