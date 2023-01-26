@@ -26,7 +26,7 @@
     background: url('images/caveBackground.jpg');
     background-size: cover;
 }
-#playContainer {
+#playContainer, #resourceContainer {
     width: 40%;
     position: relative;
     left: 10%;
@@ -45,13 +45,12 @@
     align-items: center;
 }
 #resourceBank {
-    width: 40%;
-    position: absolute;
-    right: 10%;
-	top:0px;
-	bottom:0;
-	min-width:100px;
-    background:rgba(0,0,0,0.5);
+    width: auto;
+    min-height: 150px;
+    background-color: rgba(128, 128, 128, 0.5);
+    margin: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
 }
 
 /* Play Area */
@@ -61,9 +60,8 @@
 .tab-content {
     display: none;
 }
-.tab-btn, #header {
+.tab-btn, .header {
     border: none;
-    outline: none;
     cursor: pointer;
     flex: 1;
     background-color: transparent;
@@ -71,6 +69,7 @@
     font-weight: bold;
     font-size: 20px;
     text-align: center;
+    text-decoration: underline;
 }
 .tab-btn.active {
     color: rgb(243, 243, 243);

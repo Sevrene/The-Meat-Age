@@ -67,23 +67,20 @@ function showTab(tab) {
 
 function startAnimation() {
     meatRoaster.style.animationPlayState = "running";
-    console.log(inventory.Meat);
     // start interval for adding Meat every second
-  let meatInterval = setInterval(function() {
-    if (inventory.Meat < maxMeat) {
-      inventory.Meat++;
-    }
-  }, 1000);
+    let meatInterval = setInterval(function() {
+        inventory.addToItemValue("Meat", 1);
+    }, 500);
 
-  document.getElementById("meat").addEventListener("mouseleave", function() {
-    clearInterval(meatInterval);
-    stopAnimation()
-  });
+    document.getElementById("meat").addEventListener("mouseleave", function() {
+        clearInterval(meatInterval);
+        stopAnimation();
+    });
 
-  // add event listener for mouseup to stop interval
-  document.addEventListener("mouseup", function() {
-    clearInterval(meatInterval);
-  });
+    // add event listener for mouseup to stop interval
+    document.addEventListener("mouseup", function() {
+        clearInterval(meatInterval);
+    });
 }
 
 function stopAnimation() {
@@ -235,23 +232,73 @@ beginResearchBtn.addEventListener("click", function() {
 
 }
 
-// player inventory
-let inventory = {
-    Meat: 0
-};
-  
-// maximum Meat that can be held
-const maxMeat = 100;
+class Inventory {
+    constructor() {
+        this.items = {};
+    }
+
+    createItem(item, value = 0, maxValue = 0, precision = 1) {
+        this.items[item] = {
+            value: value.toFixed(precision),
+            maxValue: maxValue.toFixed(0),
+            precision: precision
+        };
+        updateInventory();
+    }
+
+    addToItemValue(item, value) {
+        if (!this.items[item]) {
+            this.createItem(item, value)
+            return;
+        }
+        this.items[item].value = (parseFloat(this.items[item].value) + parseFloat(value)).toFixed(this.items[item].precision);
+        if (parseFloat(this.items[item].value) < 0) {
+            this.items[item].value = 0;
+        }
+        if (parseFloat(this.items[item].value) > parseFloat(this.items[item].maxValue)) {
+            this.items[item].value = this.items[item].maxValue;
+        }
+        updateInventory();
+    }
+
+    getItemValue(item) {
+        if (!this.items[item]) {
+            console.error(`Error: ${item} does not exist in inventory.`);
+            return;
+        }
+        return this.items[item].value;
+    }
+
+    getMaxValue(item) {
+        if (!this.items[item]) {
+            console.error(`Error: ${item} does not exist in inventory.`);
+            return;
+        }
+        return this.items[item].maxValue;
+    }
+}
+
+let inventory = new Inventory();
+inventory.createItem("Meat", 0, 100, 1);
 
 // start interval for removing meat every second
 setInterval(function() {
-    if (inventory.Meat > 0) {
-      inventory.Meat -= 0.1;
+    if (inventory.getItemValue("Meat") > 0) {
+        inventory.addToItemValue("Meat", -0.1);
     }
 }, 1000);
 
-
-
+function updateInventory() {
+    let inventoryList = document.getElementById("playerInventory");
+    inventoryList.innerHTML = "";
+    for (let item in inventory.items) {
+        let itemValue = inventory.getItemValue(item);
+        let itemMaxValue = inventory.getMaxValue(item);
+        let inventoryItem = document.createElement("P");
+        inventoryItem.innerHTML = `${item}: ${itemValue}/${itemMaxValue}`;
+        inventoryList.appendChild(inventoryItem);
+    }
+}
 
 
 
