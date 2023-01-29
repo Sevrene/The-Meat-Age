@@ -1,97 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>The Meat Age</title>
-        <link rel="shortcut icon" href="images/favicon.ico">
-        <link href="styles.css" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        <div id="gameWindow">
-            <div id="playContainer">
-                <div id="tabs">
-                    <button id="tab-cook" class="tab-btn" onclick="showTab('cook')">Cook</button>
-                    <button id="tab-research" class="tab-btn" onclick="showTab('research')">Research</button>
-                    <button id="tab-craft" class="tab-btn" onclick="showTab('craft')">Craft</button>
-                    <button id="tab-explore" class="tab-btn" onclick="showTab('explore')">Explore</button>
-                </div>
-                <div id="playArea">
-                    <div id="cook" class="tab-content">Cook content here</div>
-                    <div id="research" class="tab-content">
-                        <div id="researchCanvasContainer">
-                            <canvas id="drawingCanvas"></canvas>
-                            <div id="researchItemList">
-                                <button class="researchItem">Research Item 1</button>
-                                <button class="researchItem">Research Item 2</button>
-                                <button class="researchItem">Research Item 3</button>
-                                <button class="researchItem">Research Item 4</button>
-                            </div>
-                            <div id="canvasButtonsContainer">
-                                <button id="beginResearchBtn" disabled>Begin Research</button>
-                                <button id="clearCanvasBtn">Clear Canvas</button>
-                            </div>
-                        </div>
-                        <div id="currentResearchContainer">
-                            <h2 class="header">
-                                Ongoing Research
-                            </h2>
-                        </div>       
-                    </div>                 
-                    <div id="craft" class="tab-content">Craft content here</div>
-                    <div id="explore" class="tab-content">Explore content here</div>
-                    <div id="meat"></div>
-                </div>
-            </div>
-            <div id="infoContainer">
-                    <div class="sectionContainer">
-                        <h2 class="header">Cave Storage</h2>
-                        <div id="playerInventory"></div>
-                    </div>
-                    <div class="sectionContainer">
-                        <h2 class="header">Trading Hall</h2>
-                        <div id="tradingHall"></div>
-                    </div>
-                    <div id="infoBoxWrapper">
-                        <div id="wanderingMeathead"></div>
-                        <div class="sectionContainer">
-                            <h2 class="header">Info Box</h2>
-                            <div id="infoBox"></div>
-                        </div>
-                </div>
-            </div>
-            
-            <!-- TODO: Join cave like a guild, similar to heralds -->
-        </div>
-        <div id="menu-window" class="hidden">
-            <!-- Content goes here -->
-        </div>
-        <div id="achievements-window" class="hidden">
-            <!-- Content goes here -->
-        </div>
-        <div id="infoBar">
-            <div>
-                <a href="https://discord.gg/thesouthside" target="_blank">
-                        <img src="images/discordIcon.png", alt="Discord Icon", width="24", height="24">
-                        <span>South Side Discord</span>
-                </a>
-            </div>
-            <div>
-                <a href="https://www.twitch.tv/meat" target="_blank">
-                        <!-- TODO: Get Twitch Icon -->
-                        <img src="images/discordIcon.png", alt="Twitch Icon", width="24", height="24">
-                        <span>Meat's Twitch</span>
-                </a>
-            </div>
-            <div>
-                <button id="menu-button">Menu</button>
-            </div>
-            <div>
-                <button id="achievements-button">Achievements
-                </button>
-            </div>
-            <div>
-                <img id="vol-toggle" src="images/volume.png" alt="VOL" width="24" height="24">
-            </div>
-        </div>
-    </body>
-    <script src="logic.js"></script>
+	<head>
+		<title>The Meat Age</title>
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link href="styles.css" rel="stylesheet">
+	</head>
+	<body id="gameWindow">
+		<main id="gameContent">
+			<div id="playContainer">
+				<div id="tabs">
+					<button id="tab-cook" class="tabBtn" onclick="Game.switchGameTab('cook')">Cook</button>
+					<button id="tab-research" class="tabBtn" onclick="Game.switchGameTab('research')">Research</button>
+					<button id="tab-craft" class="tabBtn" onclick="Game.switchGameTab('craft')">Craft</button>
+					<button id="tab-explore" class="tabBtn" onclick="Game.switchGameTab('explore')">Explore</button>
+				</div>
+				<div id="playArea">
+					<div id="cook" class="tabContent">Cook content here</div>
+					<div id="research" class="tabContent">
+						<div id="canvasContainer">
+							<div id="colourPicker">
+								<div id="canvasButtonContainer">
+									<button id="clearCanvasBtn">Clear Canvas</button>
+									<button id="discoverBtn">Discover</button>
+								</div>
+							</div>
+							<canvas id="drawingCanvas"></canvas>
+							<div id="researchItemList">
+							</div>
+						</div>
+						<div id="discoveredContainer">
+							<h2 class="header">
+								Discovered
+							</h2>
+						</div>       
+					</div>                 
+					<div id="craft" class="tabContent">Craft content here</div>
+					<div id="explore" class="tabContent">Explore content here</div>
+					<div id="meat"></div>
+				</div>
+			</div>
+			<div id="infoContainer">
+					<div class="sectionContainer">
+						<h2 class="header">Cave Storage</h2>
+						<div id="playerInventory"></div>
+					</div>
+					<div class="sectionContainer">
+						<h2 class="header">Trading Hall</h2>
+						<div id="tradingHall"></div>
+					</div>
+					<div id="infoBoxWrapper">
+						<div id="wanderingMeathead"></div>
+						<div class="sectionContainer">
+							<h2 class="header">Info Box</h2>
+							<div id="infoBox"></div>
+						</div>
+				</div>
+			</div>
+			
+			<!-- TODO: Join cave like a guild, similar to heralds -->
+		</div>
+		<div id="menu-window" class="hidden">
+			<!-- Content goes here -->
+		</div>
+		<div id="achievements-window" class="hidden">
+			<!-- Content goes here -->
+		</div>
+		</main>
+		<footer id="infoBar">
+			<div>
+				<a href="https://discord.gg/thesouthside" target="_blank">
+						<img src="images/discordIcon.png", alt="Discord Icon", width="24", height="24">
+						<span>South Side Discord</span>
+				</a>
+			</div>
+			<div>
+				<a href="https://www.twitch.tv/meat" target="_blank">
+						<!-- TODO: Get Twitch Icon -->
+						<img src="images/discordIcon.png", alt="Twitch Icon", width="24", height="24">
+						<span>Meat's Twitch</span>
+				</a>
+			</div>
+			<div>
+				<button id="menu-button">Menu</button>
+			</div>
+			<div>
+				<button id="achievements-button">Achievements
+				</button>
+			</div>
+		</footer>
+	</body>
+	<script src="logic.js"></script>
 </html>
