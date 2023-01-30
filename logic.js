@@ -43,15 +43,24 @@ Game.launch = function() {
 			
 			var discoverBtn = document.getElementById("discoverBtn");
 			discoverBtn.disabled = true;
-			
-            // TODO: Prevent canvas from being cleared on resize
+
 			Game.canvas.resizeCanvas = function() {
-                let stroke = ctx.lineWidth;
-                let color = ctx.strokeStyle;
+                // Altering the width and height of canvas clear all properties.
+				// Deconstruct the ctx and extract the required styling properties
+				let properties = (({ lineWidth, strokeStyle }) => ({ lineWidth, strokeStyle }))(ctx)
+				// Copy and scale the current art. Not foolproof, gets blurry when resolution is lost
+				properties.tempCanvas = document.createElement("canvas");
+				properties.tempCanvas.width = canvas.width;
+				properties.tempCanvas.height = canvas.height
+			    properties.tempCanvas.getContext("2d").drawImage(canvas, 0, 0, canvas.width, canvas.height);
+
+				// Resize
 				canvas.width = canvasContainer.offsetWidth * 0.5;
 				canvas.height = canvas.width/2;
-                ctx.lineWidth = stroke;
-                ctx.strokeStyle = color;
+				// Reapply properties
+				ctx.lineWidth = properties.lineWidth;
+				ctx.strokeStyle = properties.strokeStyle;
+				ctx.drawImage(properties.tempCanvas, 0, 0, properties.tempCanvas.width, properties.tempCanvas.height, 0, 0, canvas.width, canvas.height);
 			}
 			window.addEventListener('resize', function(){
 				Game.canvas.resizeCanvas();
