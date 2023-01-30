@@ -12,7 +12,7 @@ Main Content
 }
 #gameContent {
 	display: flex;
-	flex: 1;
+	flex: 1;	
 	justify-content: center;
 	background: url('images/caveBackground.jpg');
 	background-size: cover;
@@ -64,16 +64,19 @@ Main Content
 	color: rgb(243, 243, 243);
 }
 .tabContent {
+	flex: 1;
 	display: none;
 }
 #playArea {
 	display: flex;
-	flex-direction: column;
 	flex: 1;
+	flex-direction: column;
 	margin-top: 30px;
+	max-height: calc(100vh - 115px); 
+	
 }
 #meat {
-	margin: auto auto 0 auto;
+	margin: 0 auto;
 	width: 300px;
 	height: 150px;
 	background: url('images/meat.png') 0px 0px;
@@ -138,14 +141,14 @@ Research Tab
 	font-size: 12px;
 }
 
-/* Ongoing Research */
+/* Discovered Research */
 #discoveredContainer {
 	display: grid;
 	justify-content: center;
 	grid-template-columns: repeat(auto-fill, 225px);
 	gap: 8px;
 	padding: 1em;
-	max-height: 50vh;
+	max-height: 50%;
 }
 .research-div {
 	display: flex;
@@ -165,6 +168,12 @@ Research Tab
 	font-weight: bold;
 	font-size: 20px;
 	text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+/* Current Research */
+#currentResearchContainer {
+	margin-left: auto;
+	width: 30%;
 }
 
 /*=====================================================================================

@@ -15,8 +15,8 @@
 					<button id="tab-explore" class="tabBtn" onclick="Game.switchGameTab('explore')">Explore</button>
 				</div>
 				<div id="playArea">
-					<div id="cook" class="tabContent">Cook content here</div>
-					<div id="research" class="tabContent">
+					<div id="cook" class="tabContent scrollable">Cook content here</div>
+					<div id="research" class="tabContent scrollable">
 						<div id="canvasContainer">
 							<div id="colourPicker">
 								<div id="canvasButtonContainer">
@@ -31,12 +31,15 @@
 						<h2 class="header">
 							Discovered
 						</h2>
-						<div id="discoveredContainer" class="scrollable">
-							
+						<div id="discoveredContainer" class="scrollable"></div>
+						<div id="currentResearchContainer" class="sectionContainer">
+							<h2 class="header">Research</h2>
+							<div id="currentResearch"></div>
+							<div class="progress-bar"></div>
 						</div>       
 					</div>                 
-					<div id="craft" class="tabContent">Craft content here</div>
-					<div id="explore" class="tabContent">Explore content here</div>
+					<div id="craft" class="tabContent scrollable">Craft content here</div>
+					<div id="explore" class="tabContent scrollable">Explore content here</div>
 					<div id="meat"></div>
 				</div>
 			</div>
