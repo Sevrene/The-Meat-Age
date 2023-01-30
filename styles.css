@@ -139,11 +139,20 @@ Research Tab
 }
 
 /* Ongoing Research */
+#discoveredContainer {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(auto-fill, 225px);
+	gap: 8px;
+	padding: 1em;
+	max-height: 50vh;
+}
 .research-div {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	background-color: rgba(128, 128, 128, 0.5);
-	gap: 8px; /* add a small gap between elements */
+	border: 1px solid black;
 }
 .progress-bar {
 	height: 20px;
@@ -151,14 +160,10 @@ Research Tab
 	background-color: darkgray; /* give the progress bar a dark gray background */
 }
 .research-div p {
-	max-width: 100px;
-	height: 100%;
-	align-items: center;
-	border-left: 2px dotted #000;
+	border-bottom: 2px dotted #000;
 	color: green;
 	font-weight: bold;
 	font-size: 20px;
-	text-align: center;
 	text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
@@ -217,6 +222,10 @@ Other
 /* Functional Styling */
 .hidden {
 	visibility: hidden;
+}
+.scrollable {
+	overflow-y: scroll;
+	scrollbar-width: none;
 }
 
 /*=====================================================================================
