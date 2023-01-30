@@ -20,7 +20,7 @@ Game.launch = function() {
 		
 		// Meat Roast
 		Game.meatSpin = function() {
-			meatRoaster = document.getElementById("meat");
+			let meatRoaster = document.getElementById("meat");
 			meatRoaster.style.animationPlayState = "running";
 			
 			let mouseHandler = function() {
@@ -44,6 +44,7 @@ Game.launch = function() {
 			var discoverBtn = document.getElementById("discoverBtn");
 			discoverBtn.disabled = true;
 
+			// TODO: Prevent canvas getting forever lost if sized to 0
 			Game.canvas.resizeCanvas = function() {
                 // Altering the width and height of canvas clear all properties.
 				// Deconstruct the ctx and extract the required styling properties
@@ -116,7 +117,6 @@ Game.launch = function() {
 			});
 
 			// TODO: Calculate how much to scale canvas by based on current canvas size???
-			// TODO: Properly design created div
 		    discoverBtn.addEventListener("click", function() {
 			    const discoveredContainer = document.getElementById("discoveredContainer");
                 
@@ -127,17 +127,14 @@ Game.launch = function() {
 				// get the text of the selected research item
 			    const selectedResearchItem = document.querySelector(".researchItem.active");
 			    if(selectedResearchItem){
-			      //create a new element to hold the text of the selected research item
-			      const researchItemText = document.createElement("p");
-			      researchItemText.innerHTML = selectedResearchItem.innerHTML;
-                
-			      // append the research item text to the research div
-			      researchDiv.appendChild(researchItemText);
-                
-			      // remove the selected class from the selected research item
-			      selectedResearchItem.classList.remove("active");
-			      selectedResearchItem.remove();
-			      canvas.classList.remove("drawing");
+			      	//create a new element to hold the text of the selected research item
+			      	const researchItemText = document.createElement("p");
+			      	researchItemText.innerHTML = selectedResearchItem.innerHTML;
+			      	// append the research item text to the research div
+			      	researchDiv.appendChild(researchItemText);
+					
+			      	// Remove the the research item from the canvas list
+			      	selectedResearchItem.remove();
 				}
                 
 			    // create a copy of the canvas drawing
@@ -145,11 +142,10 @@ Game.launch = function() {
 			    canvasCopy.width = drawingCanvas.width/2;
 			    canvasCopy.height = drawingCanvas.height/2;
 			    canvasCopy.getContext("2d").drawImage(drawingCanvas, 0, 0, drawingCanvas.width, drawingCanvas.height, 0, 0, canvasCopy.width, canvasCopy.height);
-                
 			    // append the canvas copy to the research div
 			    researchDiv.appendChild(canvasCopy);
-		  
-				// append the research div to the "currentResearchContainer" div
+
+				// append the research div to the "discoveredContainer" div
 				discoveredContainer.appendChild(researchDiv);
 				
 				// clear the canvas
@@ -174,7 +170,7 @@ Game.launch = function() {
 		Unlockable Structures
 		=======================================================================================*/
 		
-		features = {
+		Game.features = {
 			cooking: false,
 			research: false,
 			crafting: false,
@@ -182,8 +178,8 @@ Game.launch = function() {
 			infobox: false,
 			trading: false
 		}
-		food = {}
-		research = {
+		Game.foodStructure = {}
+		Game.researchStructure = {
 			location : 'researchItemList',
 			HTML: '<button class="researchItem">${item}</button>',
 			"Research Item 1" : {
@@ -211,8 +207,8 @@ Game.launch = function() {
 				researched: false
 			},
 		}
-		craftables = {}
-		achievements = {}
+		Game.craftablesStructure = {}
+		Game.achievementsStructure = {}
 
 		/*=====================================================================================
 		Inventory
@@ -338,7 +334,7 @@ Game.launch = function() {
 		// Footer Buttons
 		document.getElementById("menu-button").addEventListener("click", Game.togglePopup);
 		document.getElementById("achievements-button").addEventListener("click", Game.togglePopup);
-
+		
 		/*=====================================================================================
 		Function Calls
 		=======================================================================================*/
@@ -352,16 +348,16 @@ Game.launch = function() {
 	}
 	Game.logic = function() {
 		if (document.getElementById("meat").style.animationPlayState == "running")
-			inventory.addToItemValue("Hunger", 5);
+			inventory.addToItemValue("Hunger", 20);
 		if (inventory.getItemValue("Hunger") > 0) {
 			inventory.addToItemValue("Hunger", -0.1);
 		}
 		
 		if (document.getElementById("researchItemList").childElementCount < 4) {
-			for (item in research) {
+			for (let item in Game.researchStructure) {
 				// TODO: Rewrite inventory/research to avoid eval() and better access?
-				if (research[item].locked && eval(`${research[item].requirements}`)) {
-					Game.unlock(research, item);
+				if (Game.researchStructure[item].locked && eval(`${Game.researchStructure[item].requirements}`)) {
+					Game.unlock(Game.researchStructure, item);
 				}
 			}
 		}
