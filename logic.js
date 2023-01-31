@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 Game.launch = function() {
+	Game.reloadDiscoveries = 1;
+	Game.reloadRecipes = 1;
+	Game.reloadCrafts = 1;
 	let fps = 30;
 	var inventory;
 
@@ -115,39 +118,14 @@ Game.launch = function() {
 			document.getElementById("clearCanvasBtn").addEventListener("click", function() {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 			});
-
-			// TODO: Calculate how much to scale canvas by based on current canvas size???
 		    discoverBtn.addEventListener("click", function() {
-			    const discoveredContainer = document.getElementById("discoveredContainer");
-                
-			    // create a new div to hold the research information
-			    const researchDiv = document.createElement("div");
-			    researchDiv.classList.add("research-div");
-
-				// get the text of the selected research item
-			    const selectedResearchItem = document.querySelector(".researchItem.active");
-			    if(selectedResearchItem){
-			      	//create a new element to hold the text of the selected research item
-			      	const researchItemText = document.createElement("p");
-			      	researchItemText.innerHTML = selectedResearchItem.innerHTML;
-			      	// append the research item text to the research div
-			      	researchDiv.appendChild(researchItemText);
-					
-			      	// Remove the the research item from the canvas list
-			      	selectedResearchItem.remove();
-				}
-                
-			    // create a copy of the canvas drawing
-			    const canvasCopy = document.createElement("canvas");
-			    canvasCopy.width = 225;
-			    canvasCopy.height = 112;
-			    canvasCopy.getContext("2d").drawImage(drawingCanvas, 0, 0, drawingCanvas.width, drawingCanvas.height, 0, 0, canvasCopy.width, canvasCopy.height);
-			    // append the canvas copy to the research div
-			    researchDiv.appendChild(canvasCopy);
-
-				// append the research div to the "discoveredContainer" div
-				discoveredContainer.appendChild(researchDiv);
+				const selectedResearchItem = document.querySelector(".researchItem.active");
 				
+				Game.researchStructure[selectedResearchItem.innerHTML].discovered = true;
+				Game.researchStructure[selectedResearchItem.innerHTML].canvasData = canvas.toDataURL()
+				selectedResearchItem.remove();
+				
+				Game.actOnReloadDiscoveries();
 				// clear the canvas
 				document.getElementById("clearCanvasBtn").click()
 		  	});
@@ -167,55 +145,119 @@ Game.launch = function() {
 		// TODO: Game.checkRequirements?
 
 		/*=====================================================================================
+		Reloads
+		=======================================================================================*/
+		Game.discoveries = [];
+		
+		Game.actOnReloadDiscoveries = function() {
+			const discoveredContainer = document.getElementById("discoveredContainer");
+			
+			for (let item in Game.researchStructure) {
+				if (Game.researchStructure[item].discovered && !Game.researchStructure[item].researched) {
+					if (Game.discoveries.includes(item)) { continue; }
+					// create a new div to hold the research information
+					let researchDiv = document.createElement("div");
+					researchDiv.classList.add("research-div");
+
+					let researchItemText = document.createElement("p");
+				  	researchItemText.innerHTML = item;
+					
+					// create a copy of the canvas drawing
+					let canvasCopy = document.createElement("canvas");
+					canvasCopy.width = 225;
+					canvasCopy.height = 112;
+					
+					let img = new Image;
+					img.src = Game.researchStructure[item].canvasData
+					img.onload = function() {
+						canvasCopy.getContext("2d").drawImage(img, 0, 0, img.width, img.height, 0, 0, canvasCopy.width, canvasCopy.height);
+					};
+
+					researchDiv.appendChild(researchItemText);
+					researchDiv.appendChild(canvasCopy);
+					discoveredContainer.appendChild(researchDiv);
+
+					Game.discoveries.push(item);
+				}
+			}
+			Game.reloadDiscoveries = 0;
+		}
+		/*=====================================================================================
 		Unlockable Structures
 		=======================================================================================*/
-		
-		Game.features = {
+		if (!localStorage.length === 0) {
+			Game.features = localStorage.getItem(features);
+			Game.foodStructure = localStorage.getItem(foodStructure);
+			Game.researchStructure = localStorage.getItem(researchStructure);
+			Game.craftablesStructure = localStorage.getItem(craftablesStructure);
+			Game.achievementsStructure = localStorage.getItem(achievementsStructure);
+		}
+		else {
+			Game.features = {
 			cooking: false,
 			research: false,
 			crafting: false,
 			exploring: false,
 			infobox: false,
 			trading: false
-		}
-		Game.foodStructure = {}
-		Game.researchStructure = {
+			}
+			Game.foodStructure = {}
+			Game.researchStructure = {
 			location : 'researchItemList',
 			HTML: '<button class="researchItem">${item}</button>',
 			"Research Item 1" : {
 				locked: true,
 				requirements: 'inventory.getItemValue("Hunger") > 10',
 				hungerRequired: 1000,
+				discovered: false,
+				canvasData: null,
 				researched: false
 			},
 			"Research Item 2" : {
 				locked: true,
 				requirements: 'inventory.getItemValue("Hunger") > 20',
 				hungerRequired: 1000,
+				discovered: false,
+				canvasData: null,
 				researched: false
 			},
 			"Research Item 3" : {
 				locked: true,
 				requirements: 'inventory.getItemValue("Hunger") > 30',
 				hungerRequired: 1000,
+				discovered: false,
+				canvasData: null,
 				researched: false
 			},
 			"Research Item 4" : {
 				locked: true,
 				requirements: 'inventory.getItemValue("Hunger") > 40',
 				hungerRequired: 1000,
+				discovered: false,
+				canvasData: null,
 				researched: false
 			},
+			}
+			Game.craftablesStructure = {}
+			Game.achievementsStructure = {}
 		}
-		Game.craftablesStructure = {}
-		Game.achievementsStructure = {}
 
 		/*=====================================================================================
 		Inventory
 		=======================================================================================*/
-
-		inventory = {
-			items: []
+		if (!localStorage.length === 0) {
+			inventory = localStorage.getItem(inventory)
+		}
+		else {
+			inventory = {
+				items: {
+					"Hunger" : {
+						value: parseFloat(0).toFixed(1),
+						maxValue: parseInt(100).toFixed(0),
+						precision: 1
+					}
+				}
+			}
 		}
 
 		inventory.createItem = function(item, value = 0, maxValue = 0, precision = 1) {
@@ -224,7 +266,6 @@ Game.launch = function() {
 				maxValue: maxValue.toFixed(0),
 				precision: precision
 			};
-			inventory.updateInventory();
 		}
 		inventory.addToItemValue = function(item, value) {
 			if (!inventory.items[item]) {
@@ -238,7 +279,6 @@ Game.launch = function() {
 			if (parseFloat(inventory.items[item].value) > parseFloat(inventory.items[item].maxValue)) {
 				inventory.items[item].value = inventory.items[item].maxValue;
 			}
-			inventory.updateInventory();
 		}
 		inventory.getItemValue = function(item) {
 			if (!inventory.items[item]) {
@@ -265,8 +305,6 @@ Game.launch = function() {
 				inventoryList.appendChild(inventoryItem);
 			}
 		}
-
-		inventory.createItem("Hunger", 0, 100, 1);
 
 		/*=====================================================================================
 		Helper Functions
@@ -343,16 +381,26 @@ Game.launch = function() {
 		/*=====================================================================================
 		Begin Game
 		=======================================================================================*/
+		//TODO: Localstorage the current tab?
 		Game.switchGameTab(activeTab);
+
 		Game.loop();
 	}
 	Game.logic = function() {
+		/*=====================================================================================
+		General Logic
+		=======================================================================================*/
 		if (document.getElementById("meat").style.animationPlayState == "running")
 			inventory.addToItemValue("Hunger", 20);
 		if (inventory.getItemValue("Hunger") > 0) {
 			inventory.addToItemValue("Hunger", -0.1);
 		}
-		
+		inventory.updateInventory();
+
+		/*=====================================================================================
+		Research Tab Logic
+		=======================================================================================*/
+		// If the research queue isn't full, checked the locked research for eligible unlocks
 		if (document.getElementById("researchItemList").childElementCount < 4) {
 			for (let item in Game.researchStructure) {
 				// TODO: Rewrite inventory/research to avoid eval() and better access?
@@ -361,6 +409,9 @@ Game.launch = function() {
 				}
 			}
 		}
+		if (Game.reloadDiscoveries) { Game.actOnReloadDiscoveries(); }
+
+		// TODO: Populate discovered research
 	}
 	Game.loop = function() {
 		//TODO: Setup logic to fps limiter
