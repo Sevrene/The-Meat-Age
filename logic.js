@@ -139,8 +139,8 @@ Game.launch = function() {
                 
 			    // create a copy of the canvas drawing
 			    const canvasCopy = document.createElement("canvas");
-			    canvasCopy.width = drawingCanvas.width/2;
-			    canvasCopy.height = drawingCanvas.height/2;
+			    canvasCopy.width = 225;
+			    canvasCopy.height = 112;
 			    canvasCopy.getContext("2d").drawImage(drawingCanvas, 0, 0, drawingCanvas.width, drawingCanvas.height, 0, 0, canvasCopy.width, canvasCopy.height);
 			    // append the canvas copy to the research div
 			    researchDiv.appendChild(canvasCopy);
@@ -292,7 +292,7 @@ Game.launch = function() {
 		}
 		Game.switchGameTab = function(tab) {
 			document.getElementById(activeTab).style.display = "none";
-			document.getElementById(tab).style.display = "block";
+			document.getElementById(tab).style.display = "flex";
 
 			document.getElementById(`tab-${activeTab}`).classList.remove("active");
 			document.getElementById(`tab-${tab}`).classList.add("active");
