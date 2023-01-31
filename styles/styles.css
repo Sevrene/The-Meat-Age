@@ -1,0 +1,927 @@
+/*=====================================================================================
+Main Content
+=======================================================================================*/
+/* Game containers */
+#gameWindow {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#gameContent {
+  display: flex;
+  flex: 1;
+  max-height: calc(100vh - 40px);
+  justify-content: center;
+  background: url("images/caveBackground.jpg");
+  background-size: cover;
+}
+
+#playContainer, #infoContainer {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+  max-height: 100%;
+  border: 3px solid;
+}
+
+#playContainer {
+  width: 50%;
+}
+
+#infoContainer {
+  width: 30%;
+}
+
+.sectionContainer {
+  min-height: 150px;
+  margin: 10px;
+  background-color: rgba(128, 128, 128, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+#infoBoxWrapper {
+  margin-top: auto;
+}
+
+/* Play Area */
+#tabs {
+  display: flex;
+  justify-items: center;
+  border-bottom: 1px solid black;
+  margin-bottom: 15px;
+}
+
+.tabBtn {
+  flex: 1;
+  height: 40px;
+  border: none;
+  cursor: default;
+  background-color: transparent;
+  color: darkgray;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tabBtn.active {
+  color: rgb(243, 243, 243);
+}
+
+.tabContent {
+  flex-direction: column;
+  flex: 1;
+  display: none;
+}
+
+#playArea {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-height: calc(100% - 55px);
+}
+
+#meat {
+  margin: 0 auto;
+  width: 300px;
+  height: 150px;
+  background: url("images/meat.png") 0px 0px;
+  -webkit-animation: playMeatRoast 1s steps(12) infinite;
+          animation: playMeatRoast 1s steps(12) infinite;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+  transform-origin: center bottom;
+}
+
+@-webkit-keyframes playMeatRoast {
+  100% {
+    background-position: -3600px 0px;
+  } /* final background position */
+}
+
+@keyframes playMeatRoast {
+  100% {
+    background-position: -3600px 0px;
+  } /* final background position */
+}
+/*=====================================================================================
+Cooking Tab
+=======================================================================================*/
+/*=====================================================================================
+Research Tab
+=======================================================================================*/
+/* Research Canvas */
+#canvasContainer {
+  display: flex;
+  justify-content: center;
+  max-height: 450px;
+}
+
+#colourPicker {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  background-color: #5c5c5c;
+  border: 1px solid black;
+}
+
+#colours {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+}
+
+.colour {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+#black {
+  background-color: black;
+}
+
+#white {
+  background-color: white;
+}
+
+#red {
+  background-color: red;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#yellow {
+  background-color: yellow;
+}
+
+#purple {
+  background-color: purple;
+}
+
+#green {
+  background-color: green;
+}
+
+#orange {
+  background-color: orange;
+}
+
+#canvasCursor {
+  pointer-events: none;
+  cursor: none;
+  visibility: hidden;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+#drawingCanvas {
+  align-self: flex-start;
+  background: linear-gradient(to right, #f7e1b5, #f7e1b5);
+  filter: blur(1px);
+  border: 2px solid #5c5c5c;
+  cursor: none;
+}
+
+#researchItemList {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.researchItem {
+  height: 25%;
+  white-space: nowrap;
+  overflow-x: hidden;
+  border: 2px dotted;
+  cursor: pointer;
+  background-color: transparent;
+  color: darkgray;
+  font-weight: bold;
+}
+
+.researchItem.active {
+  border: solid;
+  color: rgb(243, 243, 243);
+}
+
+#canvasButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#discoverBtn, #clearCanvasBtn {
+  margin: 0px 3px;
+  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
+  border-radius: 5px;
+  transform: skew(-10deg);
+}
+
+/* Discovered Research */
+#discoveredContainer {
+  display: grid;
+  justify-content: center;
+  flex: 1;
+  grid-template-columns: repeat(auto-fill, 225px);
+  grid-template-rows: repeat(auto-fill, 140px);
+  gap: 8px;
+  padding-bottom: auto;
+  margin-bottom: auto;
+}
+
+.research-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(128, 128, 128, 0.5);
+  border: 1px solid black;
+}
+
+.research-div p {
+  margin: 0;
+  border-bottom: 2px dotted #000;
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+/* Current Research */
+#currentResearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  min-width: 300px;
+  width: 30%;
+}
+
+#currentResearch {
+  flex: 1;
+  width: 225px;
+  height: 112px;
+  border: 1px dotted black;
+}
+
+.progress-bar {
+  height: 20px;
+  width: 30%;
+  background-color: darkgray; /* give the progress bar a dark gray background */
+}
+
+/*=====================================================================================
+Crafting Tab
+=======================================================================================*/
+/*=====================================================================================
+Explore Tab
+=======================================================================================*/
+/*=====================================================================================
+Info Section
+=======================================================================================*/
+/* Wandering Meathead */
+#wanderingMeathead {
+  position: relative;
+  bottom: -10px;
+  width: 128px;
+  height: 32px;
+  background: url("images/meathead_sprite.png") 0px 0px;
+  -webkit-animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
+          animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
+  margin: auto;
+}
+
+@-webkit-keyframes playMeathead {
+  100% {
+    background-position: -192px 0px;
+  } /* final background position */
+}
+
+@keyframes playMeathead {
+  100% {
+    background-position: -192px 0px;
+  } /* final background position */
+}
+@-webkit-keyframes moveMeathead {
+  0% {
+    left: -40%;
+    transform: rotateY(180deg);
+  }
+  50% {
+    left: 40%;
+    transform: rotateY(180deg);
+  }
+  50.1% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    left: -40%;
+  }
+}
+@keyframes moveMeathead {
+  0% {
+    left: -40%;
+    transform: rotateY(180deg);
+  }
+  50% {
+    left: 40%;
+    transform: rotateY(180deg);
+  }
+  50.1% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    left: -40%;
+  }
+}
+/*=====================================================================================
+Other
+=======================================================================================*/
+#popup-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+}
+
+.header {
+  margin: 5px 0;
+  cursor: default;
+  color: darkgray;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.draggable {
+  cursor: move;
+}
+
+/* Functional Styling */
+.hidden {
+  visibility: hidden;
+}
+
+.scrollable {
+  min-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+/*=====================================================================================
+Footer
+=======================================================================================*/
+/* Bottom InfoBar */
+#infoBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 32px;
+  color: #fff;
+  background-color: darkslategray;
+  padding: 4px 0px;
+  box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.2);
+}
+
+#infoBar > div:nth-child(3) {
+  margin-left: auto;
+}
+
+#infoBar > div {
+  display: flex;
+  margin: 0px 3px;
+  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
+  border-radius: 5px;
+  transform: skew(-10deg);
+}
+
+#infoBar > div:active {
+  transform: skew(-10deg) translateY(1px);
+  background-color: #333333;
+}
+
+#infoBar a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+}
+
+#infoBar a:hover, #infoBar button:hover {
+  color: #7289da;
+  text-shadow: 0px 0px 3px #5e73c1;
+  cursor: pointer;
+}
+
+#infoBar button {
+  color: inherit;
+  background-color: transparent;
+  padding: 0px 10px;
+}
+
+#infoBar img {
+  padding: 5px 5px 5px 0px;
+}
+
+/*=====================================================================================
+Media Breakpoints
+=======================================================================================*/
+@media (max-width: 1000px) {
+  #playContainer {
+    width: 60%;
+  }
+  #infoContainer {
+    width: 40%;
+  }
+  .tabBtn {
+    font-size: 0.75em;
+  }
+  #meat {
+    transform: scale(0.75);
+  }
+  #canvasContainer {
+    justify-content: flex-start;
+  }
+  #colourPicker, #researchItemList {
+    flex: 1;
+  }
+  #infoBar, #infoBar a {
+    font-size: 0.9em;
+  }
+}
+@media (max-height: 800px) {
+  #meat {
+    position: fixed;
+    bottom: 40px;
+  }
+  #infoBar {
+    position: fixed;
+    bottom: 0;
+  }
+} /*=====================================================================================
+Main Content
+=======================================================================================*/
+/* Game containers */
+#gameWindow {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#gameContent {
+  display: flex;
+  flex: 1;
+  max-height: calc(100vh - 40px);
+  justify-content: center;
+  background: url("images/caveBackground.jpg");
+  background-size: cover;
+}
+
+#playContainer, #infoContainer {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+  max-height: 100%;
+  border: 3px solid;
+}
+
+#playContainer {
+  width: 50%;
+}
+
+#infoContainer {
+  width: 30%;
+}
+
+.sectionContainer {
+  min-height: 150px;
+  margin: 10px;
+  background-color: rgba(128, 128, 128, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+#infoBoxWrapper {
+  margin-top: auto;
+}
+
+/* Play Area */
+#tabs {
+  display: flex;
+  justify-items: center;
+  border-bottom: 1px solid black;
+  margin-bottom: 15px;
+}
+
+.tabBtn {
+  flex: 1;
+  height: 40px;
+  border: none;
+  cursor: default;
+  background-color: transparent;
+  color: darkgray;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tabBtn.active {
+  color: rgb(243, 243, 243);
+}
+
+.tabContent {
+  flex-direction: column;
+  flex: 1;
+  display: none;
+}
+
+#playArea {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-height: calc(100% - 55px);
+}
+
+#meat {
+  margin: 0 auto;
+  width: 300px;
+  height: 150px;
+  background: url("images/meat.png") 0px 0px;
+  -webkit-animation: playMeatRoast 1s steps(12) infinite;
+          animation: playMeatRoast 1s steps(12) infinite;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+  transform-origin: center bottom;
+}
+
+@keyframes playMeatRoast {
+  100% {
+    background-position: -3600px 0px;
+  } /* final background position */
+}
+/*=====================================================================================
+Cooking Tab
+=======================================================================================*/
+/*=====================================================================================
+Research Tab
+=======================================================================================*/
+/* Research Canvas */
+#canvasContainer {
+  display: flex;
+  justify-content: center;
+  max-height: 450px;
+}
+
+#colourPicker {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  background-color: #5c5c5c;
+  border: 1px solid black;
+}
+
+#colours {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+}
+
+.colour {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+#black {
+  background-color: black;
+}
+
+#white {
+  background-color: white;
+}
+
+#red {
+  background-color: red;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#yellow {
+  background-color: yellow;
+}
+
+#purple {
+  background-color: purple;
+}
+
+#green {
+  background-color: green;
+}
+
+#orange {
+  background-color: orange;
+}
+
+#canvasCursor {
+  pointer-events: none;
+  cursor: none;
+  visibility: hidden;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+#drawingCanvas {
+  align-self: flex-start;
+  background: linear-gradient(to right, #f7e1b5, #f7e1b5);
+  filter: blur(1px);
+  border: 2px solid #5c5c5c;
+  cursor: none;
+}
+
+#researchItemList {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.researchItem {
+  height: 25%;
+  white-space: nowrap;
+  overflow-x: hidden;
+  border: 2px dotted;
+  cursor: pointer;
+  background-color: transparent;
+  color: darkgray;
+  font-weight: bold;
+}
+
+.researchItem.active {
+  border: solid;
+  color: rgb(243, 243, 243);
+}
+
+#canvasButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#discoverBtn, #clearCanvasBtn {
+  margin: 0px 3px;
+  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
+  border-radius: 5px;
+  transform: skew(-10deg);
+}
+
+/* Discovered Research */
+#discoveredContainer {
+  display: grid;
+  justify-content: center;
+  flex: 1;
+  grid-template-columns: repeat(auto-fill, 225px);
+  grid-template-rows: repeat(auto-fill, 140px);
+  gap: 8px;
+  padding-bottom: auto;
+  margin-bottom: auto;
+}
+
+.research-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(128, 128, 128, 0.5);
+  border: 1px solid black;
+}
+
+.research-div p {
+  margin: 0;
+  border-bottom: 2px dotted #000;
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+/* Current Research */
+#currentResearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  min-width: 300px;
+  width: 30%;
+}
+
+#currentResearch {
+  flex: 1;
+  width: 225px;
+  height: 112px;
+  border: 1px dotted black;
+}
+
+.progress-bar {
+  height: 20px;
+  width: 30%;
+  background-color: darkgray; /* give the progress bar a dark gray background */
+}
+
+/*=====================================================================================
+Crafting Tab
+=======================================================================================*/
+/*=====================================================================================
+Explore Tab
+=======================================================================================*/
+/*=====================================================================================
+Info Section
+=======================================================================================*/
+/* Wandering Meathead */
+#wanderingMeathead {
+  position: relative;
+  bottom: -10px;
+  width: 128px;
+  height: 32px;
+  background: url("images/meathead_sprite.png") 0px 0px;
+  -webkit-animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
+          animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
+  margin: auto;
+}
+
+@keyframes playMeathead {
+  100% {
+    background-position: -192px 0px;
+  } /* final background position */
+}
+@keyframes moveMeathead {
+  0% {
+    left: -40%;
+    transform: rotateY(180deg);
+  }
+  50% {
+    left: 40%;
+    transform: rotateY(180deg);
+  }
+  50.1% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    left: -40%;
+  }
+}
+/*=====================================================================================
+Other
+=======================================================================================*/
+#popup-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+}
+
+.header {
+  margin: 5px 0;
+  cursor: default;
+  color: darkgray;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.draggable {
+  cursor: move;
+}
+
+/* Functional Styling */
+.hidden {
+  visibility: hidden;
+}
+
+.scrollable {
+  min-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+/*=====================================================================================
+Footer
+=======================================================================================*/
+/* Bottom InfoBar */
+#infoBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 32px;
+  color: #fff;
+  background-color: darkslategray;
+  padding: 4px 0px;
+  box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.2);
+}
+
+#infoBar > div:nth-child(3) {
+  margin-left: auto;
+}
+
+#infoBar > div {
+  display: flex;
+  margin: 0px 3px;
+  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
+  border-radius: 5px;
+  transform: skew(-10deg);
+}
+
+#infoBar > div:active {
+  transform: skew(-10deg) translateY(1px);
+  background-color: #333333;
+}
+
+#infoBar a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+}
+
+#infoBar a:hover, #infoBar button:hover {
+  color: #7289da;
+  text-shadow: 0px 0px 3px #5e73c1;
+  cursor: pointer;
+}
+
+#infoBar button {
+  color: inherit;
+  background-color: transparent;
+  padding: 0px 10px;
+}
+
+#infoBar img {
+  padding: 5px 5px 5px 0px;
+}
+
+/*=====================================================================================
+Media Breakpoints
+=======================================================================================*/
+@media (max-width: 1000px) {
+  #playContainer {
+    width: 60%;
+  }
+  #infoContainer {
+    width: 40%;
+  }
+  .tabBtn {
+    font-size: 0.75em;
+  }
+  #meat {
+    transform: scale(0.75);
+  }
+  #canvasContainer {
+    justify-content: flex-start;
+  }
+  #colourPicker, #researchItemList {
+    flex: 1;
+  }
+  #infoBar, #infoBar a {
+    font-size: 0.9em;
+  }
+}
+@media (max-height: 800px) {
+  #meat {
+    position: fixed;
+    bottom: 40px;
+  }
+  #infoBar {
+    position: fixed;
+    bottom: 0;
+  }
+}/*# sourceMappingURL=styles.css.map */

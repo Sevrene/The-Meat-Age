@@ -461,6 +461,7 @@ Game.launch = function() {
 		// TODO: Populate discovered research
 	}
 	Game.loop = function() {
+		//TODO: Keep track of time taken in logic to speedup/slowdown timeout
 		Game.logic();
 		setTimeout(Game.loop,1000)/fps;
 	}
