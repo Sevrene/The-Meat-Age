@@ -105,15 +105,64 @@ Research Tab
 	max-height: 450px;
 }
 #colourPicker {
+	display: flex;
+	flex-direction: column;
 	width: 10%;
 	background-color: #5c5c5c;
 	border: 1px solid black;
+}
+#colours {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	grid-template-columns: 1fr 1fr;
+	flex: 1;
+}
+.colour {
+    width: 20px;
+    height: 20px;
+	border-radius: 50%;	
+}
+#black {
+	background-color: black;
+}
+#white {
+	background-color: white;
+}
+#red {
+	background-color: red;
+}
+#blue {
+	background-color: blue;
+}
+#yellow {
+	background-color: yellow;
+}
+#purple {
+	background-color: purple;
+}
+#green {
+	background-color: green;
+}
+#orange {
+	background-color: orange;
+}
+#canvasCursor {
+	pointer-events: none;
+	cursor: none;
+	visibility: hidden;
+	position: absolute;
+    width: 8px;
+    height: 8px;
+	border-radius: 50%;
+    background-color: black;
 }
 #drawingCanvas{
 	align-self: flex-start;
 	background: linear-gradient(to right, #f7e1b5, #f7e1b5);
 	filter: blur(1px);
 	border: 2px solid #5c5c5c;
+	cursor: none;
 }
 #researchItemList {
 	display: flex;
@@ -139,8 +188,12 @@ Research Tab
 	flex-direction: column;
 }
 #discoverBtn, #clearCanvasBtn {
-	flex: 1;
-	font-size: 12px;
+	margin: 0px 3px;
+	box-shadow:
+		inset 0px 2px 0px #000,
+		inset 0px -2px 0px #ccc;
+	border-radius: 5px;
+	transform: skew(-10deg);
 }
 
 /* Discovered Research */

@@ -43,6 +43,7 @@ Game.launch = function() {
 			var canvasContainer = document.getElementById("canvasContainer");
 			var canvas = document.getElementById("drawingCanvas");
 			var ctx = canvas.getContext("2d");
+			const dot = document.getElementById("canvasCursor");
 			
 			var discoverBtn = document.getElementById("discoverBtn");
 			discoverBtn.disabled = true;
@@ -70,8 +71,8 @@ Game.launch = function() {
 				Game.canvas.resizeCanvas();
 			});
 
-            Game.canvas.setColor = function() {
-                ctx.strokeStyle = "black";
+            Game.canvas.setColor = function(colour) {
+                ctx.strokeStyle = colour;
             }
             Game.canvas.setStroke = function() {
                 ctx.lineWidth = 5;
@@ -90,6 +91,12 @@ Game.launch = function() {
 					discoverBtn.disabled = true;
 				}
 			});
+			canvas.addEventListener("mouseenter", function() {
+				dot.style.visibility = "visible";
+			});
+			canvas.addEventListener("mouseleave", function() {
+				dot.style.visibility = "hidden";
+			});
 			canvas.addEventListener("mousedown", function(e) {
 				drawing = true;
 				var rect = canvas.getBoundingClientRect()
@@ -97,6 +104,9 @@ Game.launch = function() {
 				lastY = e.clientY - rect.top;
 			});
 			canvas.addEventListener("mousemove", function(e) {
+				dot.style.left = e.pageX+'px';
+				dot.style.top = e.pageY+'px';
+
                 drawing = e.buttons == 1;
 				if (drawing) {
 					var rect = canvas.getBoundingClientRect()
@@ -115,6 +125,14 @@ Game.launch = function() {
 			canvas.addEventListener("mouseup", function() {
 				drawing = false;
 			});
+
+			var colours = document.querySelectorAll(".colour");
+			for(const colour of colours) {
+				colour.addEventListener("click", function(e) {
+					dot.style.backgroundColor = e.target.id;
+					Game.canvas.setColor(e.target.id);
+				});
+			}
 			document.getElementById("clearCanvasBtn").addEventListener("click", function() {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 			});
