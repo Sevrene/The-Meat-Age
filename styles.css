@@ -147,8 +147,12 @@ Research Tab
 #discoveredContainer {
 	display: grid;
 	justify-content: center;
+	flex: 1;
 	grid-template-columns: repeat(auto-fill, 225px);
+	grid-template-rows: repeat(auto-fill, 140px);
 	gap: 8px;
+	padding-bottom: auto;
+	margin-bottom: auto;
 }
 .research-div {
 	display: flex;
@@ -171,7 +175,6 @@ Research Tab
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: auto;
 	margin-left: auto;
 	min-width: 300px;
 	width: 30%;
@@ -230,7 +233,6 @@ Info Section
 Other
 =======================================================================================*/
 
-/* Popup Windows */
 #popup-window {
 	position: absolute;
 	top: 0;
@@ -238,6 +240,18 @@ Other
 	width: 100px;
 	height: 100px;
 	background-color: white;
+}
+.header {
+	margin: 5px 0;
+	cursor: default;
+	color: darkgray;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	text-decoration: underline;
+}
+.draggable {
+	cursor: move;
 }
 
 /* Functional Styling */
@@ -248,15 +262,6 @@ Other
 	min-height: 100px;
 	overflow-y: scroll;
 	scrollbar-width: none;
-}
-.header {
-	margin: 5px 0;
-	cursor: default;
-	color: darkgray;
-	font-weight: bold;
-	font-size: 20px;
-	text-align: center;
-	text-decoration: underline;
 }
 
 /*=====================================================================================

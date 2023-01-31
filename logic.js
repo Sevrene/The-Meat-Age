@@ -139,7 +139,7 @@ Game.launch = function() {
 			
 			// Attach a click listener for selecting element as active
 			let newElement = document.getElementById(type.location).lastElementChild;
-			Game.attachListener(newElement, "click", Game.toggleActive.bind(newElement, newElement.className));
+			newElement.addEventListener("click", Game.toggleActive.bind(newElement, newElement.className));
 		}
 
 		// TODO: Game.checkRequirements?
@@ -157,7 +157,14 @@ Game.launch = function() {
 					if (Game.discoveries.includes(item)) { continue; }
 					// create a new div to hold the research information
 					let researchDiv = document.createElement("div");
-					researchDiv.classList.add("research-div");
+					researchDiv.id = item;
+					researchDiv.classList.add("research-div", "draggable");
+					researchDiv.draggable = true;
+
+					researchDiv.addEventListener('dragstart', function(event) {
+						console.log("dragging");
+						event.dataTransfer.setData("text/plain", event.target.id);
+					});
 
 					let researchItemText = document.createElement("p");
 				  	researchItemText.innerHTML = item;
@@ -182,6 +189,7 @@ Game.launch = function() {
 			}
 			Game.reloadDiscoveries = 0;
 		}
+
 		/*=====================================================================================
 		Unlockable Structures
 		=======================================================================================*/
@@ -343,9 +351,6 @@ Game.launch = function() {
                 Game.canvas.setStroke();
 			}
 		}
-		Game.attachListener = function(element, eventType, callback) {
-			element.addEventListener(eventType, callback);
-		}
 		Game.toggleActive = function(familyClass) {
 			var activeButton = document.querySelector(`.${familyClass}.active`);
 			if (!this.classList.contains("active")) {
@@ -368,6 +373,30 @@ Game.launch = function() {
 		
 		// Meat Roast
 		document.getElementById("meat").addEventListener("mousedown", Game.meatSpin);
+
+		// Draggables Drop Zones
+		// TODO: Fix this to account for research drop zone and the return area drop zone
+		var droppables = document.querySelectorAll(".droppable");
+		for(const droppable of droppables) {
+			droppable.addEventListener('dragover', function(event) {
+				event.preventDefault();
+			});
+			
+			droppable.addEventListener('drop', function(event) {
+				event.preventDefault();
+				const draggableId = event.dataTransfer.getData("text/plain");
+				const draggableElement = document.getElementById(draggableId);
+				if (draggableElement.parentElement == this) { return; }
+				if (this.hasChildNodes()) {
+					const currentChild = this.firstChild;
+					this.removeChild(currentChild);
+					draggableElement.parentElement.appendChild(currentChild);
+					this.appendChild(draggableElement);
+				} else {
+					this.appendChild(draggableElement);
+				}
+			});
+		}
 
 		// Footer Buttons
 		document.getElementById("menu-button").addEventListener("click", Game.togglePopup);
@@ -414,9 +443,8 @@ Game.launch = function() {
 		// TODO: Populate discovered research
 	}
 	Game.loop = function() {
-		//TODO: Setup logic to fps limiter
 		Game.logic();
-		setTimeout(Game.loop,1000);
+		setTimeout(Game.loop,1000)/fps;
 	}
 
 	Game.init();
