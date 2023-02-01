@@ -117,7 +117,7 @@ Game.launch = function() {
 					ctx.moveTo(lastX, lastY);
 					ctx.lineTo(x, y);
 					ctx.stroke();
-		
+					
 					lastX = x;
 					lastY = y;
 				}
@@ -392,8 +392,7 @@ Game.launch = function() {
 		// Meat Roast
 		document.getElementById("meat").addEventListener("mousedown", Game.meatSpin);
 
-		// Draggables Drop Zones
-		// TODO: Fix this to account for research drop zone and the return area drop zone
+		// Drop Zones
 		var droppables = document.querySelectorAll(".droppable");
 		for(const droppable of droppables) {
 			droppable.addEventListener('dragover', function(event) {
@@ -405,7 +404,7 @@ Game.launch = function() {
 				const draggableId = event.dataTransfer.getData("text/plain");
 				const draggableElement = document.getElementById(draggableId);
 				if (draggableElement.parentElement == this) { return; }
-				if (this.hasChildNodes()) {
+				if (this.parentElement.classList.contains("progressable") && this.hasChildNodes()) {
 					const currentChild = this.firstChild;
 					this.removeChild(currentChild);
 					draggableElement.parentElement.appendChild(currentChild);
