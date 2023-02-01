@@ -39,7 +39,7 @@ Main Content
 .sectionContainer {
   min-height: 150px;
   margin: 10px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background: rgba(128, 128, 128, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 }
