@@ -7,6 +7,11 @@
 		<script src="logic.js"></script>
 	</head>
 	<body id="gameWindow">
+		<div id="modals">
+			<div id="canvasCursor"></div>
+			<dialog id="menuModal"></dialog>
+			<dialog id="achievementsModal"></dialog>
+		</div>
 		<main id="gameContent">
 			<div id="playContainer">
 				<div id="tabs">
@@ -44,7 +49,7 @@
 						</h2>
 							<div id="discoveredContainer" class="scrollable droppable">
 							</div>
-						<div id="currentResearchContainer" class="sectionContainer">
+						<div id="currentResearchContainer" class="sectionContainer progressable">
 							<h2 class="header">Research</h2>
 							<div id="currentResearch" class="droppable"></div>
 							<div class="progress-bar"></div>
@@ -102,7 +107,6 @@
 				</button>
 			</div>
 		</footer>
-		<div id="canvasCursor"></div>
 	</body>
 	
 </html>
