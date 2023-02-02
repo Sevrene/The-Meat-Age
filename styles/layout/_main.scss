@@ -1,0 +1,66 @@
+@use '../abstracts/' as *;
+@use '../base/' as *;
+
+/*=====================================================================================
+Main Content Layout
+=======================================================================================*/
+
+#gameWindow {
+	@include flex(column);
+	min-height: 100vh;
+}
+
+#gameContent {
+	@include flex(row);
+	max-height: calc(100vh - 32px);
+	justify-content: center;
+	background: url('../images/caveBackground.jpg');
+	background-size: cover;
+}
+
+#playContainer, #infoContainer {
+	@include flex(column, none);
+	background: $primaryBackgroundColor;
+	border-left: 3px solid $black;
+	border-right: 3px solid $black;
+}
+
+#playContainer {
+	width: 50%;
+}
+
+#infoContainer {
+	width: 30%;
+}
+
+.baseContainer {
+	margin: 10px;
+	background: rgba(128, 128, 128, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 20px;
+}
+
+.sectionContainer {
+	@extend .baseContainer;
+	min-height: 150px;
+}
+
+#tabs {
+	@include flex(row, none);
+	justify-items: center;
+	border-bottom: 1px solid black;
+	margin-bottom: 15px;
+}
+
+.tabContent {
+	flex-direction: column;
+	flex: 1;
+	display: none;
+}
+
+#playArea {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	max-height: calc(100% - 55px);
+}

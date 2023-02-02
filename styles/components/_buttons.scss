@@ -1,0 +1,59 @@
+@use '../abstracts/' as *;
+@use '../base/' as *;
+
+/*
+ * Component Name: .button
+ * 
+ * Purpose: This component is used for styling basic buttons.
+ * 
+ * Notes: 
+ * - The component is defined using `.button` selector
+ * - The component sets some basic styles for buttons, such as display, alignment, and cursor
+ * - The component also sets styles for buttons that are children of an anchor tag
+ * - The component includes a breakpoint mixin to adjust font-size for small screens. 
+ */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+	box-shadow:
+		inset 0px 2px 0px #000,
+		inset 0px -2px 0px #ccc;
+	border-radius: 5px;
+	transform: skew(-10deg);
+  cursor: pointer;
+
+  a & {
+    height: 100%;
+  }
+  & img {
+    height: calc(100% - 4px);
+  }
+
+  @include breakpoint-width('small') {
+    font-size: 0.75em;
+  }
+}
+
+/*
+ * Component Name: .button
+ * 
+ * Purpose: Additional styling if button is within footer
+ * 
+ * Notes: 
+ * - The component is defined using `.button` selector
+ */
+footer .button {
+  @extend .button;
+  padding: 0px 10px;
+  margin: 0px 5px;
+  background-color: transparent;
+  
+  &:hover {
+    color: $lightblue;
+    text-shadow: 0px 0px 3px $indigo;
+  }
+}

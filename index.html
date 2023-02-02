@@ -7,19 +7,19 @@
 		<script src="logic.js"></script>
 	</head>
 	<body id="gameWindow">
-		<div id="modals">
+		<div> <!-- Modals -->
 			<div id="canvasCursor"></div>
 			<dialog id="menuModal"></dialog>
 			<dialog id="achievementsModal"></dialog>
 		</div>
 		<main id="gameContent">
 			<div id="playContainer">
-				<div id="tabs">
-					<button id="tab-cook" class="tabBtn" onclick="Game.switchGameTab('cook')">Cook</button>
-					<button id="tab-research" class="tabBtn" onclick="Game.switchGameTab('research')">Research</button>
-					<button id="tab-craft" class="tabBtn" onclick="Game.switchGameTab('craft')">Craft</button>
-					<button id="tab-explore" class="tabBtn" onclick="Game.switchGameTab('explore')">Explore</button>
-				</div>
+				<nav id="tabs">
+					<button id="tab-cook" class="navButton f_tabs">Cook</button>
+					<button id="tab-research" class="navButton f_tabs">Research</button>
+					<button id="tab-craft" class="navButton f_tabs">Craft</button>
+					<button id="tab-explore" class="navButton f_tabs">Explore</button>
+				</nav>
 				<div id="playArea">
 					<div id="cook" class="tabContent scrollable">Cook content here</div>
 					<div id="research" class="tabContent scrollable">
@@ -36,8 +36,8 @@
 									<div id="orange" class="colour"></div>
 								</div>
 								<div id="canvasButtonContainer">
-									<button id="clearCanvasBtn">Clear</button>
-									<button id="discoverBtn">Discover</button>
+									<button id="clearCanvasBtn" class="button">Clear</button>
+									<button id="discoverBtn" class="button">Discover</button>
 								</div>
 							</div>
 							<canvas id="drawingCanvas"></canvas>
@@ -85,27 +85,22 @@
 			<!-- Content goes here -->
 		</div>
 		</main>
-		<footer id="infoBar">
-			<div>
-				<a href="https://discord.gg/thesouthside" target="_blank">
-						<img src="images/discordIcon.png" alt="Discord Icon" width="24" height="24">
-						<span>South Side Discord</span>
-				</a>
-			</div>
-			<div>
-				<a href="https://www.twitch.tv/meat" target="_blank">
-						<!-- TODO: Get Twitch Icon -->
-						<img src="images/discordIcon.png" alt="Twitch Icon" width="24" height="24">
-						<span>Meat's Twitch</span>
-				</a>
-			</div>
-			<div>
-				<button id="menu-button">Menu</button>
-			</div>
-			<div>
-				<button id="achievements-button">Achievements
+		<footer>
+			<a href="https://discord.gg/thesouthside" target="_blank">
+				<button class="button">
+					<img src="images/discordIcon.png" alt="Discord Icon">
+					South Side Discord
 				</button>
-			</div>
+			</a>
+			<a href="https://www.twitch.tv/meat" target="_blank">
+				<button class="button">
+					<!-- TODO: Get Twitch Icon -->
+					<img src="images/discordIcon.png" alt="Twitch Icon">
+					Meat's Twitch
+				</button>
+			</a>
+			<button id="menu-button" class="button pushToEnd">Menu</button>
+			<button id="achievements-button" class="button">Achievements</button>
 		</footer>
 	</body>
 	

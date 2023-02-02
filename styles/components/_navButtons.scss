@@ -1,0 +1,35 @@
+@use '../abstracts/' as *;
+@use '../base/' as *;
+@use './buttons' as *;
+
+/*
+ * Component Name: .navButton
+ * 
+ * Purpose: This component extends styles from the .button component, adding specific styles for navigation.
+ * 
+ * Notes: 
+ * - The component is defined using `.navButton` selector and extends styles from the `.button` component
+ * - The component modifies styles such as margin-top, flex
+ * - The component overrides styles such as border, background-color, and box-shadow
+ * - The component also sets hover, focus, and active styles, as well as selected class styles
+ */
+.navButton {
+  @extend .button;
+  margin-top: 1rem;
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+
+  &:hover, &:focus {
+    color: darken($white, 20%);
+  }
+  &:active {
+    color: darken($white, 30%); 
+  }
+
+  &.selected {
+    text-decoration: underline;
+    color: darken($white, 30%);
+  }
+}

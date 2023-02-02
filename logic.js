@@ -2,7 +2,7 @@
 var Game = {};
 
 // TODO: Remove parameter after finished development
-let activeTab = 'research';
+let activeTab;
 //
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -355,28 +355,34 @@ Game.launch = function() {
 			}
 		}
 		Game.switchGameTab = function(tab) {
-			document.getElementById(activeTab).style.display = "none";
+			if(activeTab == tab) { return; }
+			if(activeTab) { document.getElementById(activeTab).style.display = "none"; }
 			document.getElementById(tab).style.display = "flex";
-
-			document.getElementById(`tab-${activeTab}`).classList.remove("active");
-			document.getElementById(`tab-${tab}`).classList.add("active");
+			
+			Game.toggleSelected.call(document.getElementById(`tab-${tab}`), 'f_tabs', canDeselect = false);
 		  
 			activeTab = tab;
-
+			
 			if (activeTab == "research") {
 				Game.canvas.resizeCanvas();
                 Game.canvas.setColor();
                 Game.canvas.setStroke();
 			}
 		}
-		Game.toggleActive = function(familyClass) {
-			var activeButton = document.querySelector(`.${familyClass}.active`);
-			if (!this.classList.contains("active")) {
-				this.classList.add("active");
+		Game.toggleSelected = function(familyClass, canDeselect = true) {
+			if(this.classList.contains('selected')) {
+				if(canDeselect){
+					this.classList.remove('selected')
+				}
 			}
-            if (activeButton) {
-				activeButton.classList.remove("active");
+			else {
+				let selectedElement = document.querySelector(`.${familyClass}.selected`);
+				if(selectedElement) {
+					selectedElement.classList.remove("selected");
+				}
+				this.classList.add("selected");
 			}
+      
 		}
 
 		/*=====================================================================================
@@ -388,6 +394,11 @@ Game.launch = function() {
 		/*=====================================================================================
 		General Listeners
 		=======================================================================================*/
+		
+		var tabs = document.getElementById("tabs").querySelectorAll(".f_tabs")
+		for(const tab of tabs) {
+			tab.addEventListener('click', Game.switchGameTab.bind(tab, tab.id.substring(4)));
+		}
 		
 		// Meat Roast
 		document.getElementById("meat").addEventListener("mousedown", Game.meatSpin);
@@ -428,7 +439,7 @@ Game.launch = function() {
 		Begin Game
 		=======================================================================================*/
 		//TODO: Localstorage the current tab?
-		Game.switchGameTab(activeTab);
+		Game.switchGameTab('research');
 
 		Game.loop();
 	}

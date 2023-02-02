@@ -1,20 +1,114 @@
 /*=====================================================================================
-Main Content
+Resets
 =======================================================================================*/
-/* Game containers */
-#gameWindow {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 100vh;
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,
+a, img, ol, ul, li, canvas, details,
+footer, header, nav, section {
   margin: 0;
   padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+details, footer, header, main, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+/*=====================================================================================
+Typography
+=======================================================================================*/
+* {
+  min-width: 0;
+}
+
+body, h3, h4, h5, h6, p, ul, ol, details {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+}
+
+h3, h4 {
+  font-size: 18px;
+}
+
+h1, h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+nav {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+footer {
+  font-size: 14px;
+}
+
+img {
+  display: inline;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/*=====================================================================================
+Footer
+=======================================================================================*/
+footer {
+  display: flex;
+  flex-direction: row;
+  flex: none;
+  width: 100%;
+  height: 32px;
+  color: #ffffff;
+  background-color: #2f4f4f;
+  box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+footer .button.pushToEnd {
+  margin-left: auto;
+}
+footer button:active {
+  transform: skew(-10deg) translateY(1px);
+  background-color: #676767;
+}
+
+/*=====================================================================================
+Main Content Layout
+=======================================================================================*/
+#gameWindow {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  min-height: 100vh;
 }
 
 #gameContent {
   display: flex;
-  flex: 1;
-  max-height: calc(100vh - 40px);
+  flex-direction: row;
+  flex: auto;
+  max-height: calc(100vh - 32px);
   justify-content: center;
   background: url("../images/caveBackground.jpg");
   background-size: cover;
@@ -23,9 +117,10 @@ Main Content
 #playContainer, #infoContainer {
   display: flex;
   flex-direction: column;
+  flex: none;
   background: rgba(0, 0, 0, 0.5);
-  max-height: 100%;
-  border: 3px solid;
+  border-left: 3px solid #000000;
+  border-right: 3px solid #000000;
 }
 
 #playContainer {
@@ -36,42 +131,24 @@ Main Content
   width: 30%;
 }
 
-.sectionContainer {
-  min-height: 150px;
+.baseContainer, .sectionContainer {
   margin: 10px;
   background: rgba(128, 128, 128, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
-#infoBoxWrapper {
-  margin-top: auto;
+.sectionContainer {
+  min-height: 150px;
 }
 
-/* Play Area */
 #tabs {
   display: flex;
+  flex-direction: row;
+  flex: none;
   justify-items: center;
   border-bottom: 1px solid black;
   margin-bottom: 15px;
-}
-
-.tabBtn {
-  flex: 1;
-  height: 40px;
-  border: none;
-  cursor: default;
-  background-color: transparent;
-  color: darkgray;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.tabBtn.active {
-  color: rgb(243, 243, 243);
 }
 
 .tabContent {
@@ -87,35 +164,6 @@ Main Content
   max-height: calc(100% - 55px);
 }
 
-#meat {
-  margin: 0 auto;
-  width: 300px;
-  height: 150px;
-  background: url("../images/meat.png") 0px 0px;
-  -webkit-animation: playMeatRoast 1s steps(12) infinite;
-          animation: playMeatRoast 1s steps(12) infinite;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
-  transform-origin: center bottom;
-}
-
-@-webkit-keyframes playMeatRoast {
-  100% {
-    background-position: -3600px 0px;
-  } /* final background position */
-}
-
-@keyframes playMeatRoast {
-  100% {
-    background-position: -3600px 0px;
-  } /* final background position */
-}
-/*=====================================================================================
-Cooking Tab
-=======================================================================================*/
-/*=====================================================================================
-Research Tab
-=======================================================================================*/
 /* Research Canvas */
 #canvasContainer {
   display: flex;
@@ -223,13 +271,6 @@ Research Tab
   flex-direction: column;
 }
 
-#discoverBtn, #clearCanvasBtn {
-  margin: 0px 3px;
-  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
-  border-radius: 5px;
-  transform: skew(-10deg);
-}
-
 /* Discovered Research */
 #discoveredContainer {
   display: grid;
@@ -245,9 +286,12 @@ Research Tab
 .research-div {
   display: flex;
   flex-direction: column;
+  flex: auto;
+  margin: 10px;
+  background: rgba(128, 128, 128, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
   align-items: center;
-  background-color: rgba(128, 128, 128, 0.5);
-  border: 1px solid black;
 }
 
 .research-div p {
@@ -282,6 +326,120 @@ Research Tab
   background-color: darkgray; /* give the progress bar a dark gray background */
 }
 
+/*
+ * Component Name: .button
+ * 
+ * Purpose: This component is used for styling basic buttons.
+ * 
+ * Notes: 
+ * - The component is defined using `.button` selector
+ * - The component sets some basic styles for buttons, such as display, alignment, and cursor
+ * - The component also sets styles for buttons that are children of an anchor tag
+ * - The component includes a breakpoint mixin to adjust font-size for small screens. 
+ */
+.button, .navButton, footer .button, footer .navButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
+  border-radius: 5px;
+  transform: skew(-10deg);
+  cursor: pointer;
+}
+a .button, a .navButton {
+  height: 100%;
+}
+.button img, .navButton img {
+  height: calc(100% - 4px);
+}
+@media only screen and (max-width: 1000px) {
+  .button, .navButton, footer .button, footer .navButton {
+    font-size: 0.75em;
+  }
+}
+
+/*
+ * Component Name: .button
+ * 
+ * Purpose: Additional styling if button is within footer
+ * 
+ * Notes: 
+ * - The component is defined using `.button` selector
+ */
+footer .button, footer .navButton {
+  padding: 0px 10px;
+  margin: 0px 5px;
+  background-color: transparent;
+}
+footer .button:hover, footer .navButton:hover {
+  color: #7289da;
+  text-shadow: 0px 0px 3px #5e73c1;
+}
+
+/*
+ * Component Name: .navButton
+ * 
+ * Purpose: This component extends styles from the .button component, adding specific styles for navigation.
+ * 
+ * Notes: 
+ * - The component is defined using `.navButton` selector and extends styles from the `.button` component
+ * - The component modifies styles such as margin-top, flex
+ * - The component overrides styles such as border, background-color, and box-shadow
+ * - The component also sets hover, focus, and active styles, as well as selected class styles
+ */
+.navButton {
+  margin-top: 1rem;
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+.navButton:hover, .navButton:focus {
+  color: #cccccc;
+}
+.navButton:active {
+  color: #b3b3b3;
+}
+.navButton.selected {
+  text-decoration: underline;
+  color: #b3b3b3;
+}
+
+/*=====================================================================================
+Main Content
+=======================================================================================*/
+#meat {
+  margin: 0 auto;
+  width: 300px;
+  height: 150px;
+  background: url("../images/meat.png") 0px 0px;
+  -webkit-animation: playMeatRoast 1s steps(12) infinite;
+          animation: playMeatRoast 1s steps(12) infinite;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+  transform-origin: center bottom;
+}
+
+@-webkit-keyframes playMeatRoast {
+  100% {
+    background-position: -3600px 0px;
+  } /* final background position */
+}
+
+@keyframes playMeatRoast {
+  100% {
+    background-position: -3600px 0px;
+  } /* final background position */
+}
+/*=====================================================================================
+Cooking Tab
+=======================================================================================*/
+/*=====================================================================================
+Research Tab
+=======================================================================================*/
 /*=====================================================================================
 Crafting Tab
 =======================================================================================*/
@@ -291,6 +449,10 @@ Explore Tab
 /*=====================================================================================
 Info Section
 =======================================================================================*/
+#infoBoxWrapper {
+  margin-top: auto;
+}
+
 /* Wandering Meathead */
 #wanderingMeathead {
   position: relative;
@@ -387,63 +549,6 @@ Other
   min-height: 100px;
   overflow-y: scroll;
   scrollbar-width: none;
-}
-
-/*=====================================================================================
-Footer
-=======================================================================================*/
-/* Bottom InfoBar */
-#infoBar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  width: 100%;
-  height: 32px;
-  color: #fff;
-  background-color: darkslategray;
-  padding: 4px 0px;
-  box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.2);
-}
-
-#infoBar > div:nth-child(3) {
-  margin-left: auto;
-}
-
-#infoBar > div {
-  display: flex;
-  margin: 0px 3px;
-  box-shadow: inset 0px 2px 0px #000, inset 0px -2px 0px #ccc;
-  border-radius: 5px;
-  transform: skew(-10deg);
-}
-
-#infoBar > div:active {
-  transform: skew(-10deg) translateY(1px);
-  background-color: #333333;
-}
-
-#infoBar a {
-  color: inherit;
-  text-decoration: none;
-  padding: 0px 5px;
-  display: flex;
-  align-items: center;
-}
-
-#infoBar a:hover, #infoBar button:hover {
-  color: #7289da;
-  text-shadow: 0px 0px 3px #5e73c1;
-  cursor: pointer;
-}
-
-#infoBar button {
-  color: inherit;
-  background-color: transparent;
-  padding: 0px 10px;
-}
-
-#infoBar img {
-  padding: 5px 5px 5px 0px;
 }
 
 /*=====================================================================================

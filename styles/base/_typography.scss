@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "../abstracts/colors";
+
+/*=====================================================================================
+Typography
+=======================================================================================*/
+
+$font-weights: (
+  light:   300,
+  regular: 400,
+  bold:    600,
+);
+
+$font-sizes: (
+  small:      14px,
+  medium:     16px,
+  large:      18px,
+  x-large:    20px,
+);
+
+* { min-width: 0; }
+
+body, h3, h4, h5, h6, p, ul, ol, details {
+  font-size: map.get($font-sizes, 'medium');
+  font-weight: map.get($font-weights, 'regular');
+  color: colors.$black;
+}
+
+h3, h4 {
+  font-size: map.get($font-sizes, 'large');
+}
+
+h1, h2 { 
+  font-size: map.get($font-sizes, 'x-large');
+  font-weight: map.get($font-weights, 'bold');
+  text-align: center;
+  color: colors.$white;
+}
+
+a {
+  text-decoration: none;
+  color: colors.$white;
+}
+
+nav {
+  font-size: map.get($font-sizes, 'x-large');
+  font-weight: map.get($font-weights, 'bold');
+  color: colors.$white;
+}
+
+footer {
+  font-size: map.get($font-sizes, 'small');
+}
+
+img {
+  display: inline;
+  margin: {
+    right: auto;
+    left: auto;
+  };
+  max-width: 100%;
+  height: auto;
+}

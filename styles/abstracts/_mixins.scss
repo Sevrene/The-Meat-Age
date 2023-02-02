@@ -1,0 +1,17 @@
+/// Set flex display on an element.
+///
+/// @mixin
+/// @param {string} $direction
+///   The direction of the flex container, can be either `row` or `column`.
+/// @param {string} [$flexType=auto]
+///   The flexible length dimension of a flex item.
+///
+/// @example
+///   .example-class {
+///     @include flex(row, none);
+///   }
+@mixin flex($dir, $flexType: auto) {
+	display: flex;
+	flex-direction: $dir;
+	flex: $flexType;
+}
