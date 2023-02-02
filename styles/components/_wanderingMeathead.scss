@@ -1,0 +1,31 @@
+@use '../abstracts/' as *;
+@use '../base/' as *;
+
+#wanderingMeathead {
+	position: relative;
+	width: 128px;
+	height: 32px;
+	background: url('/images/meathead_sprite.png') 0px 0px;
+	animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
+  
+  &.pushToEnd {
+    margin-top: auto;
+  }
+}
+
+@keyframes playMeathead {
+	100% { background-position: -192px 0px; } /* final background position */
+}
+
+@keyframes moveMeathead {
+	0% {
+			left: -40%;
+			transform: rotateY(180deg);
+	}
+	50% {
+			left: 40%;
+			transform: rotateY(180deg);
+	}
+	50.1% { transform: rotateY(0deg); }
+	100% { left: -40%; }
+}

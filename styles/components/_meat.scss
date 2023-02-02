@@ -1,0 +1,23 @@
+@use '../abstracts/' as *;
+@use '../base/' as *;
+
+#meat {
+	width: 300px;
+	height: 150px;
+	background: url('../images/meat.png') 0px 0px;
+	animation: playMeatRoast 1s steps(12) infinite;
+	animation-play-state: paused;
+	transform-origin: left bottom;
+
+  @include breakpoint-width('small') {
+    transform: scale(0.75);
+  }
+  @include breakpoint-height('small') {
+    position: fixed;
+    bottom: $footerHeight;
+  }
+}
+
+@keyframes playMeatRoast {
+	100% { background-position: -3600px 0px; }
+}

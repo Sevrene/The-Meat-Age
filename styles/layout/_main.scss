@@ -1,5 +1,6 @@
 @use '../abstracts/' as *;
 @use '../base/' as *;
+@use 'sass:color';
 
 /*=====================================================================================
 Main Content Layout
@@ -12,7 +13,7 @@ Main Content Layout
 
 #gameContent {
 	@include flex(row);
-	max-height: calc(100vh - 32px);
+	max-height: calc(100vh - $footerHeight);
 	justify-content: center;
 	background: url('../images/caveBackground.jpg');
 	background-size: cover;
@@ -27,40 +28,44 @@ Main Content Layout
 
 #playContainer {
 	width: 50%;
+
+	& section {
+		@include flex(column);
+		display: none;
+	}
+
+	@include breakpoint-width('small') {
+		width: 60%;
+	}
 }
 
 #infoContainer {
 	width: 30%;
+
+	& section {
+		@extend .baseContainer;
+		min-height: 150px;
+	}
+
+	@include breakpoint-width('small') {
+		width: 40%;
+	}
 }
 
 .baseContainer {
-	margin: 10px;
-	background: rgba(128, 128, 128, 0.5);
-	border: 1px solid rgba(0, 0, 0, 0.3);
+	background: $secondaryBackgroundColor;
+	border: 1px solid color.change($black, $alpha: 0.3);
 	border-radius: 20px;
 }
 
-.sectionContainer {
-	@extend .baseContainer;
-	min-height: 150px;
-}
-
-#tabs {
+#nav {
 	@include flex(row, none);
-	justify-items: center;
-	border-bottom: 1px solid black;
-	margin-bottom: 15px;
-}
-
-.tabContent {
-	flex-direction: column;
-	flex: 1;
-	display: none;
+	height: $navbarHeight;
+	border-bottom: 1px solid $black;
 }
 
 #playArea {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	max-height: calc(100% - 55px);
+	@include flex(column);
+	max-height: calc(100% - $navbarHeight);
+	padding-top: 20px;
 }

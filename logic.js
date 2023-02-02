@@ -157,7 +157,7 @@ Game.launch = function() {
 			
 			// Attach a click listener for selecting element as active
 			let newElement = document.getElementById(type.location).lastElementChild;
-			newElement.addEventListener("click", Game.toggleActive.bind(newElement, newElement.className));
+			newElement.addEventListener("click", Game.toggleSelected.bind(newElement, newElement.className));
 		}
 
 		// TODO: Game.checkRequirements?
@@ -395,7 +395,7 @@ Game.launch = function() {
 		General Listeners
 		=======================================================================================*/
 		
-		var tabs = document.getElementById("tabs").querySelectorAll(".f_tabs")
+		var tabs = document.getElementById("nav").querySelectorAll(".f_tabs")
 		for(const tab of tabs) {
 			tab.addEventListener('click', Game.switchGameTab.bind(tab, tab.id.substring(4)));
 		}

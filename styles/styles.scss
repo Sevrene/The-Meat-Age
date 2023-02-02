@@ -1,75 +1,6 @@
-@use './abstracts/' as *;
-@use './base/' as *;
 @use './layout/' as *;
 @use './tabs/' as *;
 @use './components/' as *;
-/*=====================================================================================
-Main Content
-=======================================================================================*/
-
-#meat {
-	margin: 0 auto;
-	width: 300px;
-	height: 150px;
-	background: url('../images/meat.png') 0px 0px;
-	animation: playMeatRoast 1s steps(12) infinite;
-	animation-play-state: paused;
-	transform-origin: center bottom;
-}
-@keyframes playMeatRoast {
-	100% { background-position: -3600px 0px; } /* final background position */
-}
-
-/*=====================================================================================
-Cooking Tab
-=======================================================================================*/
-
-/*=====================================================================================
-Research Tab
-=======================================================================================*/
-
-
-
-/*=====================================================================================
-Crafting Tab
-=======================================================================================*/
-
-/*=====================================================================================
-Explore Tab
-=======================================================================================*/
-
-/*=====================================================================================
-Info Section
-=======================================================================================*/
-
-#infoBoxWrapper {
-	margin-top: auto;
-}
-/* Wandering Meathead */
-#wanderingMeathead {
-	position: relative;
-	bottom: -10px;
-	width: 128px;
-	height: 32px;
-	background: url('images/meathead_sprite.png') 0px 0px;
-	animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
-	margin:auto;
-}
-@keyframes playMeathead {
-	100% { background-position: -192px 0px; } /* final background position */
-}
-@keyframes moveMeathead {
-	0% {
-			left: -40%;
-			transform: rotateY(180deg);
-	}
-	50% {
-			left: 40%;
-			transform: rotateY(180deg);
-	}
-	50.1% { transform: rotateY(0deg); }
-	100% { left: -40%; }
-}
 
 /*=====================================================================================
 Other
@@ -113,42 +44,15 @@ dialog::backdrop{
 	scrollbar-width: none;
 }
 
-
-
 /*=====================================================================================
 Media Breakpoints
 =======================================================================================*/
 
 @media (max-width: 1000px) {
-	#playContainer {
-		width: 60%;
-	}
-	#infoContainer {
-		width: 40%;
-	}
-	.tabBtn {
-		font-size: 0.75em;
-	}
-	#meat {
-		transform: scale(0.75);
-	}
 	#canvasContainer {
 		justify-content: flex-start;
 	}
 	#colourPicker, #researchItemList {
 		flex: 1;
-	}
-	#infoBar, #infoBar a {
-		font-size: 0.9em;
-	}
-}
-@media (max-height: 800px) {
-	#meat {
-		position: fixed;
-		bottom: 40px;
-	}
-	#infoBar {
-		position: fixed;
-		bottom: 0;
 	}
 }

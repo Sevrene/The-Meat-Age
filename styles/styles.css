@@ -1,7 +1,7 @@
 /*=====================================================================================
 Resets
 =======================================================================================*/
-html, body, div, span,
+html, body, div, span, button,
 h1, h2, h3, h4, h5, h6, p,
 a, img, ol, ul, li, canvas, details,
 footer, header, nav, section {
@@ -93,6 +93,12 @@ footer button:active {
   transform: skew(-10deg) translateY(1px);
   background-color: #676767;
 }
+@media only screen and (max-height: 800px) {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+}
 
 /*=====================================================================================
 Main Content Layout
@@ -126,42 +132,50 @@ Main Content Layout
 #playContainer {
   width: 50%;
 }
+#playContainer section {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  display: none;
+}
+@media only screen and (max-width: 1000px) {
+  #playContainer {
+    width: 60%;
+  }
+}
 
 #infoContainer {
   width: 30%;
 }
+#infoContainer section {
+  min-height: 150px;
+}
+@media only screen and (max-width: 1000px) {
+  #infoContainer {
+    width: 40%;
+  }
+}
 
-.baseContainer, .sectionContainer {
-  margin: 10px;
+.baseContainer, #infoContainer section {
   background: rgba(128, 128, 128, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
 }
 
-.sectionContainer {
-  min-height: 150px;
-}
-
-#tabs {
+#nav {
   display: flex;
   flex-direction: row;
   flex: none;
-  justify-items: center;
-  border-bottom: 1px solid black;
-  margin-bottom: 15px;
-}
-
-.tabContent {
-  flex-direction: column;
-  flex: 1;
-  display: none;
+  height: 40px;
+  border-bottom: 1px solid #000000;
 }
 
 #playArea {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  max-height: calc(100% - 55px);
+  flex: auto;
+  max-height: calc(100% - 40px);
+  padding-top: 20px;
 }
 
 /* Research Canvas */
@@ -392,6 +406,7 @@ footer .button:hover, footer .navButton:hover {
  */
 .navButton {
   margin-top: 1rem;
+  padding-bottom: 4px;
   flex: 1;
   border: none;
   background-color: transparent;
@@ -408,11 +423,7 @@ footer .button:hover, footer .navButton:hover {
   color: #b3b3b3;
 }
 
-/*=====================================================================================
-Main Content
-=======================================================================================*/
 #meat {
-  margin: 0 auto;
   width: 300px;
   height: 150px;
   background: url("../images/meat.png") 0px 0px;
@@ -420,49 +431,41 @@ Main Content
           animation: playMeatRoast 1s steps(12) infinite;
   -webkit-animation-play-state: paused;
           animation-play-state: paused;
-  transform-origin: center bottom;
+  transform-origin: left bottom;
+}
+@media only screen and (max-width: 1000px) {
+  #meat {
+    transform: scale(0.75);
+  }
+}
+@media only screen and (max-height: 800px) {
+  #meat {
+    position: fixed;
+    bottom: 32px;
+  }
 }
 
 @-webkit-keyframes playMeatRoast {
   100% {
     background-position: -3600px 0px;
-  } /* final background position */
+  }
 }
 
 @keyframes playMeatRoast {
   100% {
     background-position: -3600px 0px;
-  } /* final background position */
+  }
 }
-/*=====================================================================================
-Cooking Tab
-=======================================================================================*/
-/*=====================================================================================
-Research Tab
-=======================================================================================*/
-/*=====================================================================================
-Crafting Tab
-=======================================================================================*/
-/*=====================================================================================
-Explore Tab
-=======================================================================================*/
-/*=====================================================================================
-Info Section
-=======================================================================================*/
-#infoBoxWrapper {
-  margin-top: auto;
-}
-
-/* Wandering Meathead */
 #wanderingMeathead {
   position: relative;
-  bottom: -10px;
   width: 128px;
   height: 32px;
-  background: url("images/meathead_sprite.png") 0px 0px;
+  background: url("/images/meathead_sprite.png") 0px 0px;
   -webkit-animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
           animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
-  margin: auto;
+}
+#wanderingMeathead.pushToEnd {
+  margin-top: auto;
 }
 
 @-webkit-keyframes playMeathead {
@@ -555,35 +558,10 @@ Other
 Media Breakpoints
 =======================================================================================*/
 @media (max-width: 1000px) {
-  #playContainer {
-    width: 60%;
-  }
-  #infoContainer {
-    width: 40%;
-  }
-  .tabBtn {
-    font-size: 0.75em;
-  }
-  #meat {
-    transform: scale(0.75);
-  }
   #canvasContainer {
     justify-content: flex-start;
   }
   #colourPicker, #researchItemList {
     flex: 1;
-  }
-  #infoBar, #infoBar a {
-    font-size: 0.9em;
-  }
-}
-@media (max-height: 800px) {
-  #meat {
-    position: fixed;
-    bottom: 40px;
-  }
-  #infoBar {
-    position: fixed;
-    bottom: 0;
   }
 }/*# sourceMappingURL=styles.css.map */

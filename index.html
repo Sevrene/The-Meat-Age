@@ -14,15 +14,15 @@
 		</div>
 		<main id="gameContent">
 			<div id="playContainer">
-				<nav id="tabs">
+				<nav id="nav">
 					<button id="tab-cook" class="navButton f_tabs">Cook</button>
 					<button id="tab-research" class="navButton f_tabs">Research</button>
 					<button id="tab-craft" class="navButton f_tabs">Craft</button>
 					<button id="tab-explore" class="navButton f_tabs">Explore</button>
 				</nav>
 				<div id="playArea">
-					<div id="cook" class="tabContent scrollable">Cook content here</div>
-					<div id="research" class="tabContent scrollable">
+					<section id="cook" class="scrollable"><h1>Coming Soon</h1></section>
+					<section id="research" class="scrollable">
 						<div id="canvasContainer">
 							<div id="colourPicker">
 								<div id="colours" class="scrollable">
@@ -54,36 +54,27 @@
 							<div id="currentResearch" class="droppable"></div>
 							<div class="progress-bar"></div>
 						</div>       
-					</div>                 
-					<div id="craft" class="tabContent scrollable">Craft content here</div>
-					<div id="explore" class="tabContent scrollable">Explore content here</div>
+					</section>                 
+					<section id="craft" class="scrollable"><h1>Coming Soon</h1></section>
+					<section id="explore" class="scrollable"><h1>Coming Soon</h1></section>
 					<div id="meat"></div>
 				</div>
 			</div>
 			<div id="infoContainer">
-					<div class="sectionContainer">
-						<h2 class="header">Cave Storage</h2>
-						<div id="playerInventory"></div>
-					</div>
-					<div class="sectionContainer">
-						<h2 class="header">Trading Hall</h2>
-						<div id="tradingHall"></div>
-					</div>
-					<div id="infoBoxWrapper">
-						<div id="wanderingMeathead"></div>
-						<div class="sectionContainer">
-							<h2 class="header">Info Box</h2>
-							<div id="infoBox"></div>
-						</div>
-				</div>
+				<section>
+					<h2 class="header">Cave Storage</h2>
+					<div id="playerInventory"></div>
+				</section>
+				<section>
+					<h2 class="header">Trading Hall</h2>
+					<div id="tradingHall"></div>
+				</section>
+				<div id="wanderingMeathead" class="pushToEnd"></div>
+				<section>
+					<h2 class="header">Info Box</h2>
+					<div id="infoBox"></div>
+				</section>
 			</div>
-			<!-- TODO: Join cave like a guild, similar to heralds -->
-		<div id="menu-window" class="hidden">
-			<!-- Content goes here -->
-		</div>
-		<div id="achievements-window" class="hidden">
-			<!-- Content goes here -->
-		</div>
 		</main>
 		<footer>
 			<a href="https://discord.gg/thesouthside" target="_blank">
@@ -99,6 +90,7 @@
 					Meat's Twitch
 				</button>
 			</a>
+			<!-- Temporary --><h1 style="margin: 0 auto; align-self: center;">Alpha Build</h1><!-- Temporary -->
 			<button id="menu-button" class="button pushToEnd">Menu</button>
 			<button id="achievements-button" class="button">Achievements</button>
 		</footer>

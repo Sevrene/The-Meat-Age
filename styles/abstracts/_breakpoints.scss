@@ -16,7 +16,7 @@ $breakpoints: (
   }
 }
 
-@mixin breakpoint--height() {
+@mixin breakpoint-height($breakpoint) {
 
   @media only screen and (max-height: map.get($breakpoints, height, #{$breakpoint})) {
     @content;

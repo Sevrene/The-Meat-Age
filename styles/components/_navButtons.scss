@@ -16,6 +16,7 @@
 .navButton {
   @extend .button;
   margin-top: 1rem;
+  padding-bottom: 4px;
   flex: 1;
   border: none;
   background-color: transparent;
