@@ -1,6 +1,18 @@
 @use '../abstracts/' as *;
 @use '../base/' as *;
 
+/*
+ * Component Name: #meat
+ * 
+ * Purpose: This component is used for styling the roasting meat spritesheet.
+ * 
+ * Notes:
+ * - The component is defined using the #meat selector
+ * - The component includes the playMeatRoast animation, which changes the background position of the image to animate the sprite sheet
+ * - The component has a default animation play-state of "paused". This is intended as player interaction handled in logic.js unpauses it
+ * - The component includes two breakpoint mixins. The first adjusts the scale of the component for small width screens
+ *   and the second sets the component to a fixed position at the bottom of the screen for small height screens to ensure perpetual visibility
+ */
 #meat {
 	width: 300px;
 	height: 150px;

@@ -127,6 +127,7 @@ Main Content Layout
   background: rgba(0, 0, 0, 0.5);
   border-left: 3px solid #000000;
   border-right: 3px solid #000000;
+  overflow: hidden;
 }
 
 #playContainer {
@@ -423,6 +424,18 @@ footer .button:hover, footer .navButton:hover {
   color: #b3b3b3;
 }
 
+/*
+ * Component Name: #meat
+ * 
+ * Purpose: This component is used for styling the roasting meat spritesheet.
+ * 
+ * Notes:
+ * - The component is defined using the #meat selector
+ * - The component includes the playMeatRoast animation, which changes the background position of the image to animate the sprite sheet
+ * - The component has a default animation play-state of "paused". This is intended as player interaction handled in logic.js unpauses it
+ * - The component includes two breakpoint mixins. The first adjusts the scale of the component for small width screens
+ *   and the second sets the component to a fixed position at the bottom of the screen for small height screens to ensure perpetual visibility
+ */
 #meat {
   width: 300px;
   height: 150px;
@@ -456,11 +469,25 @@ footer .button:hover, footer .navButton:hover {
     background-position: -3600px 0px;
   }
 }
+/*
+ * Component Name: #wanderingMeathead
+ * 
+ * Purpose: This component is used for styling the wandering meathead animation.
+ * 
+ * Notes:
+ * - The component is defined using the `#wanderingMeathead` selector
+ * - The component sets the width of the sprite sheet and calculates it's walking zone using a CSS variable `--width`. Logic.js will access this variable
+ * - The component uses two animations, `playMeathead` and `moveMeathead`
+ * - The `playMeathead` animation moves the background position to animate the sprite sheet
+ * - The `moveMeathead` animation moves the position of the sprite sheet and rotates it to simulate walking
+ * - The component also has a class `.pushToEnd` which sets the `margin-top` property to `auto`
+ */
 #wanderingMeathead {
+  --width: 32px;
   position: relative;
-  width: 128px;
+  width: var(--width);
   height: 32px;
-  background: url("/images/meathead_sprite.png") 0px 0px;
+  background: url("../images/meathead_sprite.png") 0px 0px;
   -webkit-animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
           animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
 }
@@ -471,44 +498,44 @@ footer .button:hover, footer .navButton:hover {
 @-webkit-keyframes playMeathead {
   100% {
     background-position: -192px 0px;
-  } /* final background position */
+  }
 }
 
 @keyframes playMeathead {
   100% {
     background-position: -192px 0px;
-  } /* final background position */
+  }
 }
 @-webkit-keyframes moveMeathead {
   0% {
-    left: -40%;
+    left: 0%;
     transform: rotateY(180deg);
   }
   50% {
-    left: 40%;
+    left: calc(100% - var(--width));
     transform: rotateY(180deg);
   }
   50.1% {
     transform: rotateY(0deg);
   }
   100% {
-    left: -40%;
+    left: 0%;
   }
 }
 @keyframes moveMeathead {
   0% {
-    left: -40%;
+    left: 0%;
     transform: rotateY(180deg);
   }
   50% {
-    left: 40%;
+    left: calc(100% - var(--width));
     transform: rotateY(180deg);
   }
   50.1% {
     transform: rotateY(0deg);
   }
   100% {
-    left: -40%;
+    left: 0%;
   }
 }
 /*=====================================================================================

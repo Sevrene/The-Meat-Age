@@ -1,11 +1,25 @@
 @use '../abstracts/' as *;
 @use '../base/' as *;
 
+/*
+ * Component Name: #wanderingMeathead
+ * 
+ * Purpose: This component is used for styling the wandering meathead animation.
+ * 
+ * Notes:
+ * - The component is defined using the `#wanderingMeathead` selector
+ * - The component sets the width of the sprite sheet and calculates it's walking zone using a CSS variable `--width`. Logic.js will access this variable
+ * - The component uses two animations, `playMeathead` and `moveMeathead`
+ * - The `playMeathead` animation moves the background position to animate the sprite sheet
+ * - The `moveMeathead` animation moves the position of the sprite sheet and rotates it to simulate walking
+ * - The component also has a class `.pushToEnd` which sets the `margin-top` property to `auto`
+ */
 #wanderingMeathead {
+	--width: 32px;
 	position: relative;
-	width: 128px;
+	width: var(--width);
 	height: 32px;
-	background: url('/images/meathead_sprite.png') 0px 0px;
+	background: url('../images/meathead_sprite.png') 0px 0px;
 	animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
   
   &.pushToEnd {
@@ -14,18 +28,18 @@
 }
 
 @keyframes playMeathead {
-	100% { background-position: -192px 0px; } /* final background position */
+	100% { background-position: -192px 0px; }
 }
 
 @keyframes moveMeathead {
 	0% {
-			left: -40%;
-			transform: rotateY(180deg);
+		left: 0%;
+		transform: rotateY(180deg);
 	}
 	50% {
-			left: 40%;
-			transform: rotateY(180deg);
+		left: calc(100% - var(--width));
+		transform: rotateY(180deg);
 	}
 	50.1% { transform: rotateY(0deg); }
-	100% { left: -40%; }
+	100% { left: 0%; }
 }
