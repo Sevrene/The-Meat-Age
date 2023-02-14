@@ -1,6 +1,6 @@
-@use '../abstracts/' as *;
+@use '../../abstracts/' as *;
 
-
+/* TODO: Rewrite this in SCSS */
 /* Research Canvas */
 #canvasContainer {
 	display: flex;
@@ -82,7 +82,7 @@
 	color: darkgray;
 	font-weight: bold;
 }
-.researchItem.active {
+.researchItem.selected {
 	border: solid;
 	color: rgb(243, 243, 243);
 }
@@ -139,4 +139,13 @@
 	height: 20px;
 	width: 30%;
 	background-color: darkgray; /* give the progress bar a dark gray background */
+}
+
+@media (max-width: 1000px) {
+	#canvasContainer {
+		justify-content: flex-start;
+	}
+	#colourPicker, #researchItemList {
+		flex: 1;
+	}
 }
