@@ -84,7 +84,7 @@ Game.launch = function() {
 
 			// Mouse event handlers
 			canvasContainer.addEventListener("click", function(e) {
-				if (canvasContainer.querySelector(".active")) {
+				if (canvasContainer.querySelector(".selected")) {
 					discoverBtn.disabled = false;
 				}
 				else {
@@ -137,7 +137,7 @@ Game.launch = function() {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 			});
 		    discoverBtn.addEventListener("click", function() {
-				const selectedResearchItem = document.querySelector(".researchItem.active");
+				const selectedResearchItem = document.querySelector(".researchItem.selected");
 				
 				Game.researchStructure[selectedResearchItem.innerHTML].discovered = true;
 				Game.researchStructure[selectedResearchItem.innerHTML].canvasData = canvas.toDataURL()
@@ -335,22 +335,18 @@ Game.launch = function() {
 		/*=====================================================================================
 		Helper Functions
 		=======================================================================================*/
-
-		// TODO: Broken, redo
-		Game.togglePopup = function(event) {
+		Game.toggleModal = function(event) {
 			event.stopPropagation();
-			var popup = document.getElementById(event.target.id);
-			popup.classList.toggle("hidden");
-			// Check for clicks outside the popup
-			if (popup.classList.contains("hidden")) {
-				document.addEventListener("click", popupDismissal);
-			} else {
-				document.removeEventListener("click", popupDismissal);
+			const modal = document.getElementById(event.target.id + 'Window');
+			if(!modal.open) {
+				modal.show();
+				document.addEventListener("click", modalDismissal);
 			}
-		
-			function popupDismissal(event) {
-				if (!event.target.closest(popup.id)) {
-					popup.classList.add("hidden");
+
+			function modalDismissal(event) {
+				if (!(event.target.id === modal.id)) {
+					modal.close();
+					document.removeEventListener("click", modalDismissal);
 				}
 			}
 		}
@@ -427,8 +423,8 @@ Game.launch = function() {
 		}
 
 		// Footer Buttons
-		document.getElementById("menu-button").addEventListener("click", Game.togglePopup);
-		document.getElementById("achievements-button").addEventListener("click", Game.togglePopup);
+		document.getElementById("mainMenu").addEventListener("click", Game.toggleModal);
+		document.getElementById("achievementsMenu").addEventListener("click", Game.toggleModal);
 		
 		/*=====================================================================================
 		Function Calls
