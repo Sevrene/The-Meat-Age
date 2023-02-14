@@ -1,4 +1,4 @@
-/// Set flex display on an element.
+/// Set flex display on a component
 ///
 /// @mixin
 /// @param {string} $direction
@@ -14,4 +14,21 @@
 	display: flex;
 	flex-direction: $dir;
 	flex: $flexType;
+}
+
+/// Set header styling on a component
+///
+/// @mixin
+///
+/// @example
+///   .example-class {
+///     @include header();
+///   }
+@mixin header() {
+	cursor: default;
+	color: darkgray;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	text-decoration: underline;
 }
