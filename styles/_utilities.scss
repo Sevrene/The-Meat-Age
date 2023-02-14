@@ -1,0 +1,13 @@
+.draggable {
+	cursor: move;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.scrollable {
+	min-height: 100px;
+	overflow-y: scroll;
+	scrollbar-width: none;
+}
