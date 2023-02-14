@@ -7,11 +7,36 @@
 		<script src="logic.js"></script>
 	</head>
 	<body id="gameWindow">
-		<div> <!-- Modals -->
-			<div id="canvasCursor"></div>
-			<dialog id="menuModal"></dialog>
-			<dialog id="achievementsModal"></dialog>
-		</div>
+		<aside> <!-- Modals -->
+			<dialog open id="mainMenuWindow" class="modal">
+				<h3>The Meat Age</h3>
+				<section>
+					<ul>
+						<li>Creator: <span>Sevrene</span></li>
+						<li>Coders: -</li>
+						<li>Artists:
+							<ul>
+								<li>Background: Minkye</li>
+								<li>Meat Roast: MEngineer</li>
+								<li>Wandering Meathead: Infodrive</li>
+								<li>Logo & Meat Coin: igos</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Save File</h3>
+					<button>Export</button>
+					<button>Save</button>
+					<button>Load</button>
+				</section>
+				<section>
+					<h3>Build: 1.0.0A</h3>
+				</section>
+			</dialog>
+			
+			<dialog id="achievementsMenuWindow" class="modal"></dialog>
+		</aside>
 		<main id="gameContent">
 			<div id="playContainer">
 				<nav id="nav">
@@ -40,7 +65,9 @@
 									<button id="discoverBtn" class="button">Discover</button>
 								</div>
 							</div>
-							<canvas id="drawingCanvas"></canvas>
+							<canvas id="drawingCanvas">
+								<div id="canvasCursor"></div>
+							</canvas>
 							<div id="researchItemList">
 							</div>
 						</div>
@@ -91,8 +118,8 @@
 				</button>
 			</a>
 			<!-- Temporary --><h1 style="margin: 0 auto; align-self: center;">Alpha Build</h1><!-- Temporary -->
-			<button id="menu-button" class="button pushToEnd">Menu</button>
-			<button id="achievements-button" class="button">Achievements</button>
+			<button id="mainMenu" class="button pushToEnd">Menu</button>
+			<button id="achievementsMenu" class="button">Achievements</button>
 		</footer>
 	</body>
 	
