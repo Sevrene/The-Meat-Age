@@ -2,7 +2,7 @@
 Resets
 =======================================================================================*/
 html, body, div, span, button,
-h1, h2, h3, h4, h5, h6, p,
+h1, h2, h3, h4, h5, h6, p, dialog,
 a, img, ol, ul, li, canvas, details,
 footer, header, nav, section {
   margin: 0;
@@ -179,6 +179,7 @@ Main Content Layout
   padding-top: 20px;
 }
 
+/* TODO: Rewrite this in SCSS */
 /* Research Canvas */
 #canvasContainer {
   display: flex;
@@ -276,7 +277,7 @@ Main Content Layout
   font-weight: bold;
 }
 
-.researchItem.active {
+.researchItem.selected {
   border: solid;
   color: rgb(243, 243, 243);
 }
@@ -341,6 +342,14 @@ Main Content Layout
   background-color: darkgray; /* give the progress bar a dark gray background */
 }
 
+@media (max-width: 1000px) {
+  #canvasContainer {
+    justify-content: flex-start;
+  }
+  #colourPicker, #researchItemList {
+    flex: 1;
+  }
+}
 /*
  * Component Name: .button
  * 
@@ -440,10 +449,8 @@ footer .button:hover, footer .navButton:hover {
   width: 300px;
   height: 150px;
   background: url("../images/meat.png") 0px 0px;
-  -webkit-animation: playMeatRoast 1s steps(12) infinite;
-          animation: playMeatRoast 1s steps(12) infinite;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation: playMeatRoast 1s steps(12) infinite;
+  animation-play-state: paused;
   transform-origin: left bottom;
 }
 @media only screen and (max-width: 1000px) {
@@ -455,12 +462,6 @@ footer .button:hover, footer .navButton:hover {
   #meat {
     position: fixed;
     bottom: 32px;
-  }
-}
-
-@-webkit-keyframes playMeatRoast {
-  100% {
-    background-position: -3600px 0px;
   }
 }
 
@@ -488,38 +489,15 @@ footer .button:hover, footer .navButton:hover {
   width: var(--width);
   height: 32px;
   background: url("../images/meathead_sprite.png") 0px 0px;
-  -webkit-animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
-          animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
+  animation: playMeathead 1s steps(6) infinite, moveMeathead 10s steps(256) infinite;
 }
 #wanderingMeathead.pushToEnd {
   margin-top: auto;
 }
 
-@-webkit-keyframes playMeathead {
-  100% {
-    background-position: -192px 0px;
-  }
-}
-
 @keyframes playMeathead {
   100% {
     background-position: -192px 0px;
-  }
-}
-@-webkit-keyframes moveMeathead {
-  0% {
-    left: 0%;
-    transform: rotateY(180deg);
-  }
-  50% {
-    left: calc(100% - var(--width));
-    transform: rotateY(180deg);
-  }
-  50.1% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    left: 0%;
   }
 }
 @keyframes moveMeathead {
@@ -538,39 +516,22 @@ footer .button:hover, footer .navButton:hover {
     left: 0%;
   }
 }
-/*=====================================================================================
-Other
-=======================================================================================*/
-#modals {
+.modal {
   z-index: 1;
-  -webkit-backdrop-filter: blur(1px);
-          backdrop-filter: blur(1px);
+  margin-left: auto;
+  margin-right: 0;
+  position: fixed;
+  bottom: 40px;
+  right: 5%;
 }
-
-#popup-window {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  background-color: white;
-}
-
-.header {
-  margin: 5px 0;
-  cursor: default;
-  color: darkgray;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  text-decoration: underline;
+.modal::backdrop {
+  background: none;
 }
 
 .draggable {
   cursor: move;
 }
 
-/* Functional Styling */
 .hidden {
   visibility: hidden;
 }
@@ -579,16 +540,4 @@ Other
   min-height: 100px;
   overflow-y: scroll;
   scrollbar-width: none;
-}
-
-/*=====================================================================================
-Media Breakpoints
-=======================================================================================*/
-@media (max-width: 1000px) {
-  #canvasContainer {
-    justify-content: flex-start;
-  }
-  #colourPicker, #researchItemList {
-    flex: 1;
-  }
 }/*# sourceMappingURL=styles.css.map */
